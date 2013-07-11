@@ -12,11 +12,7 @@
 #include "ProbSelector.h"
 #include "NSDefault.h"
 
-const float HGGameInfo::ZERO_DEC_VALUE = -0.09f;
-const float HGGameInfo::INC_VALUE_IN_ZERO = 12.f;
-const float HGGameInfo::INC_VALUE_IN_NORMAL = 13.f;
-const float HGGameInfo::CRASH_DEC_VALUE_IN_NORMAL = 0.f; // -40.f
-const float HGGameInfo::CRASH_DEC_VALUE_IN_ZERO = -40.f;
+
 
 int HGGameInfo::INIT_GAME_TIME = 40; // 40.f
 #include "GameSystem.h"

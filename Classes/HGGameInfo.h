@@ -22,11 +22,7 @@ struct HGGameInfo
 	enum GAMEMODETYPE {NORMAL = 0, ZERO=2} gameMode;
 	static int INIT_GAME_TIME;
 	enum {NON_WORLDCUP_TIME = 40/2, WORLDCUP_TIME = 27}; // 40, 27
-	static const float ZERO_DEC_VALUE;
-	static const float INC_VALUE_IN_ZERO;
-	static const float INC_VALUE_IN_NORMAL;
-	static const float CRASH_DEC_VALUE_IN_NORMAL;
-	static const float CRASH_DEC_VALUE_IN_ZERO;
+
 	float timeAfterZero;
 	float bonusTime;
 	HGGameInfo();

@@ -279,7 +279,7 @@ void HGGameScene::onCrash()
 					KSoundEngine::sharedEngine()->playSound("uhuh.mp3");
 					KSoundEngine::sharedEngine()->playSound("crashonhurdle.mp3");
 				}
-				graphics.feverGauge->setPercentage(graphics.feverGauge->getPercentage() + HGGameInfo::CRASH_DEC_VALUE_IN_ZERO);
+				graphics.feverGauge->setPercentage(graphics.feverGauge->getPercentage() + lua_tinker::get<float>(lua, "CRASH_DEC_VALUE_IN_ZERO"));
 				break;
 			case HGGameInfo::NORMAL:
 				hgplay->combo = 0;
@@ -288,7 +288,7 @@ void HGGameScene::onCrash()
 					KSoundEngine::sharedEngine()->playSound("uhuh.mp3");
 					KSoundEngine::sharedEngine()->playSound("crashonhurdle.mp3");
 				}
-				graphics.feverGauge->setPercentage(graphics.feverGauge->getPercentage() + HGGameInfo::CRASH_DEC_VALUE_IN_NORMAL);
+				graphics.feverGauge->setPercentage(graphics.feverGauge->getPercentage() + lua_tinker::get<float>(lua, "CRASH_DEC_VALUE_IN_NORMAL"));
 				break;
 			default:
 				CCLog("%x %d", graphics.feverGauge, info.gameMode);
@@ -298,7 +298,7 @@ void HGGameScene::onCrash()
 					KSoundEngine::sharedEngine()->playSound("uhuh.mp3");
 					KSoundEngine::sharedEngine()->playSound("crashonhurdle.mp3");
 				}
-				graphics.feverGauge->setPercentage(graphics.feverGauge->getPercentage() + HGGameInfo::CRASH_DEC_VALUE_IN_NORMAL);
+				graphics.feverGauge->setPercentage(graphics.feverGauge->getPercentage() + lua_tinker::get<float>(lua, "CRASH_DEC_VALUE_IN_NORMAL"));
 				break;
 		}
 	}
@@ -344,12 +344,12 @@ void HGGameScene::onScore()
 	
 	if(info.gameMode == HGGameInfo::ZERO)
 	{
-		graphics.feverGauge->setPercentage(graphics.feverGauge->getPercentage() + HGGameInfo::INC_VALUE_IN_ZERO);
+		graphics.feverGauge->setPercentage(graphics.feverGauge->getPercentage() + lua_tinker::get<float>(lua, "INC_VALUE_IN_ZERO"));
 //		eatCoin(4);
 	}
 	else
 	{
-		graphics.feverGauge->setPercentage(graphics.feverGauge->getPercentage() + HGGameInfo::INC_VALUE_IN_NORMAL);
+		graphics.feverGauge->setPercentage(graphics.feverGauge->getPercentage() + lua_tinker::get<float>(lua, "INC_VALUE_IN_NORMAL"));
 	}
 	
 	
@@ -487,7 +487,7 @@ void HGGameScene::timeProcess(float dt)
 		
 		
 		//		CCLog("-- %d", info.zeroStep);
-		graphics.feverGauge->setPercentage(graphics.feverGauge->getPercentage() + HGGameInfo::ZERO_DEC_VALUE);
+		graphics.feverGauge->setPercentage(graphics.feverGauge->getPercentage() + lua_tinker::get<float>(lua, "ZERO_DEC_VALUE"));
 		if(graphics.feverGauge->getPercentage() <= 0.f)
 		{
 			onExitZero();
@@ -505,6 +505,8 @@ void HGGameScene::onEatCoin()
 	playInfo->__ateCoin = info.ateGoldCount;
 	graphics.ateGoldFnt->setString(KS_Util::stringWithFormat("%d", info.ateGoldCount).c_str());
 }
+
+
 void HGGameScene::update(float dt)
 {
 	dt = 1.f/60.f;

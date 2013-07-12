@@ -10,10 +10,12 @@
 HGBuilding::HGBuilding()
 {
 	collapse = false;
+	isChecked = false;
+	width = 70;
 }
 HGBuilding::~HGBuilding()
 {
-
+	
 }
 
 bool HGBuilding::init()

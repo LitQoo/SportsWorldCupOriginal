@@ -52,7 +52,7 @@ bool FacebookRank::init()
 //	CCNode::create()
 	CCLayer::init();
 	leftTime_s = -1;
-	
+//	graphdog->command("getweek", 0, this, gd_selector(ThisClassType::finishGetWeek));
 	setTouchEnabled(true);
 	CCSprite* back = CCSprite::create("main_facebook_back.png");
 	
@@ -146,14 +146,7 @@ bool FacebookRank::init()
 	schedule(schedule_selector(ThisClassType::update));
 	return true;
 }
-void FacebookRank::finishGetWeek(JsonBox::Object js)
-{
-	if(js["state"].getString() != "ok")
-		return;
-	playInfo->currentWeek = js["week"].getInt();
-	playInfo->whenRecvLeftTime = GameSystem::getCurrentTime_s();
-	mediator->setFacebookLeftTime(js["lefttime"].getInt());
-}
+
 void FacebookRank::update(float dt)
 {
 	int remainS = (leftTime_s - (GameSystem::getCurrentTime_s() - playInfo->whenRecvLeftTime));
@@ -161,7 +154,7 @@ void FacebookRank::update(float dt)
 	if(remainS < 0 && playInfo->whenRecvLeftTime >= lastReqTime)
 	{
 		lastReqTime = GameSystem::getCurrentTime_s();
-		graphdog->command("getweek", 0, this, gd_selector(ThisClassType::finishGetWeek));
+		
 	}
 	else if(remainS >= 0)
 	{

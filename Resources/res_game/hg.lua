@@ -18,6 +18,11 @@ INC_VALUE_IN_ZERO = 12
 INC_VALUE_IN_NORMAL = 13
 CRASH_DEC_VALUE_IN_NORMAL = 0
 CRASH_DEC_VALUE_IN_ZERO = -40
+SCORE_PER_BUILDING = 100 -- 건물 하나 지날 때...
+
+function score(currentCombo)
+	return currentCombo * 500
+end
 
 function updateBalance(currentCombo, bZero, timeAfterZero)
 	

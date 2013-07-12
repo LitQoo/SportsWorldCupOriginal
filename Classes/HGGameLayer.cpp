@@ -320,7 +320,8 @@ void HGGameLayer::update(float dt)
 	upDownProcess();
 	checkEatCoin();
 	crashProcess();
-	checkPassObs();
+	if(isStarted)
+		checkPassObs();
 	gabageCollector();
 }
 
@@ -418,6 +419,11 @@ void HGGameLayer::onScore()
 	
 	
 }
+void HGGameLayer::onBuildingScore()
+{
+	CCLog("Score!!");
+	CCNotificationCenter::sharedNotificationCenter()->postNotification("onHGBuildingScore");	
+}
 void HGGameLayer::checkPassObs()
 {
 	for_each(middleObsSprites.begin(), middleObsSprites.end(), [=](HGMiddleObs*& build)
@@ -436,7 +442,21 @@ void HGGameLayer::checkPassObs()
 					 this->onScore();
 				 }
 			 });
-	
+	for_each(buildingSprites.begin(), buildingSprites.end(), [=](HGBuilding*& build)
+			 {
+				 // 득점 조건 검사
+				 bool passed = false;
+				 if(hgPlayer->getPosX() > build->getPosX() + build->getWidth() / 2.f
+					&& build->getIsChecked() == false)
+				 {
+					 build->setIsChecked(true);
+					 passed = true;
+				 }
+				 if(passed && hgPlayer->STATE == HGPlayer::NORMAL) // 방금 막 지나감
+				 {
+					 this->onBuildingScore();
+				 }
+			 });
 }
 bool HGGameLayer::AABB(CCRect a, CCRect b)
 {

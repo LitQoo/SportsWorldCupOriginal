@@ -236,16 +236,13 @@ bool HGGameScene::init()
 	
 	
 	CCNotificationCenter::sharedNotificationCenter()->addObserver(this, callfuncO_selector(HGGameScene::onScore), "onHGScore", 0);
+	CCNotificationCenter::sharedNotificationCenter()->addObserver(this, callfuncO_selector(HGGameScene::onBuildingScore), "onHGBuildingScore", 0);
 	CCNotificationCenter::sharedNotificationCenter()->addObserver(this, callfuncO_selector(HGGameScene::onCrash), "onHGCrash", 0);
 	CCNotificationCenter::sharedNotificationCenter()->addObserver(this, callfuncO_selector(HGGameScene::onEatCoin), "onHGEatCoin", 0);
 	return true;
 }
 
 
-int HGGameScene::scoreFromWhat()
-{
-	return 100 * 2.f;
-}
 
 void HGGameScene::onCrash()
 {
@@ -313,6 +310,25 @@ void HGGameScene::onCrash()
 	}
 
 }
+
+void HGGameScene::onBuildingScore()
+{
+	if(info.isGameOvering == true)
+		return;
+	
+	KSoundEngine::sharedEngine()->playSound("skigihap.wav");
+	bool bShout = false;
+	
+	int adder = lua_tinker::get<int>(lua, "SCORE_PER_BUILDING");
+	hgplay->gameScore = hgplay->gameScore.getVar() + adder;
+	
+	float virtualMaxScore = MAX(100000, playInfo->hgscore);
+	float goalScale = MIN(1.3f, 0.6f + (float)hgplay->gameScore.getVar() * 2.f / (float)virtualMaxScore);
+	
+	
+	
+	graphics.scoreFnt->runAction(CCEaseBackOut::create(CCScaleTo::create(1.f, goalScale)));
+}
 void HGGameScene::onScore()
 {
 	if(info.isGameOvering == true)
@@ -358,11 +374,11 @@ void HGGameScene::onScore()
 		CCLog("zero1!");
 		onEnterZero();
 	}
-	
-	hgplay->gameScore = hgplay->gameScore.getVar() + scoreFromWhat();
+	int adderScore = lua_tinker::call<int>(lua, "score", hgplay->combo.getVar());
+	hgplay->gameScore = hgplay->gameScore.getVar() + adderScore;
 //	wcplay->gameScore = hgplay->gameScore.getVar();
 //	wcplay->scoreEachGame["HG"] = wcplay->gameScore.getVar();
-	CCLabelBMFont* bonusFnt = CCLabelBMFont::create(KS_Util::stringWithFormat("+%d", scoreFromWhat()).c_str(), "bonusscore.fnt");
+	CCLabelBMFont* bonusFnt = CCLabelBMFont::create(KS_Util::stringWithFormat("+%d", adderScore).c_str(), "bonusscore.fnt");
 	bonusFnt->setPosition(ccp(graphics.scoreFnt->getPosition().x + graphics.scoreFnt->getContentSize().width / 3.f,
 							  graphics.scoreFnt->getPosition().y - graphics.scoreFnt->getContentSize().height / 3.f));
 	addChild(bonusFnt, 2);

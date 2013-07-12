@@ -51,6 +51,10 @@ public:
 	CC_SYNTHESIZE(float, posY, PosY);
 	CC_SYNTHESIZE(float, buildingWidth, BuildingWidth);
 	CC_SYNTHESIZE(bool, collapse, Collapse);
+	
+	
+	CC_SYNTHESIZE(float, width, Width);
+	CC_SYNTHESIZE(bool, isChecked, IsChecked);
 };
 
 #endif

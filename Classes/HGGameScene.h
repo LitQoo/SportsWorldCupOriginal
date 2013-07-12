@@ -50,9 +50,10 @@ public:
     SCENE_FUNC(HGGameScene);
 private:
 	void onScore();
+	void onBuildingScore();
 	void onCrash();
 	void onEatCoin();
-	int scoreFromWhat();
+
 	void PAUSE(CCObject*);
 	virtual bool ccTouchBegan(cocos2d::CCTouch *pTouch, cocos2d::CCEvent *pEvent);
 	virtual void ccTouchMoved(cocos2d::CCTouch *pTouch, cocos2d::CCEvent *pEvent);

@@ -851,7 +851,8 @@ void SWIntro::finishGetWeek(JsonBox::Object js)
 	
 	playInfo->currentWeek = js["week"].getInt();
 	playInfo->whenRecvLeftTime = GameSystem::getCurrentTime_s();
-	setFacebookLeftTime(js["lefttime"].getInt());
+	facebookRank->leftTime_s = js["lefttime"].getInt();
+//	setFacebookLeftTime(js["lefttime"].getInt());
 	
 }
 

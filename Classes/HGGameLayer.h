@@ -73,6 +73,7 @@ private:
 	float nextTopObsPosition;
 	void upDownProcess();
 	void onScore();
+	void onBuildingScore();
 	float vertVelocity;
 	Well512 well512;
 	void render();

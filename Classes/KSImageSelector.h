@@ -165,7 +165,7 @@ public:
 	virtual bool init()
 	{
 		CCLayerColor::initWithColor(ccc4(0,0,0,0));
-
+		setTouchEnabled(true);
 		return true;
 	}
 	void setImageList(vector<string> _il)

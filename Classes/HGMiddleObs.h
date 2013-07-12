@@ -64,9 +64,10 @@ public:
 	CC_SYNTHESIZE(float, posX, PosX);
 	CC_SYNTHESIZE(float, posY, PosY);
 //	CC_SYNTHESIZE(bool, scoring, Scoring);
-	CC_SYNTHESIZE(float, width, Width);
+	
 	CC_SYNTHESIZE(CCSprite*, obsSprite, ObsSprite);
 	CC_SYNTHESIZE(bool, isAttack, IsAttack); // 얘가 공격을 했는지 여부.
+	CC_SYNTHESIZE(float, width, Width);
 	CC_SYNTHESIZE(bool, isChecked, IsChecked);
 };
 

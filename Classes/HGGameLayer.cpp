@@ -210,7 +210,7 @@ void HGGameLayer::createCoin(HGBuilding* bd)
 		
 		HGCoin* coin = HGCoin::create();
 		coin->setPosX(bd->getPosX());
-		coin->setPosY(bd->getPosY() + 40);
+		coin->setPosY(bd->getPosY() + lua_tinker::get<int>(lua, "COIN_HEIGHT"));
 		coinSprites.push_back(coin);
 		addChild(coin, 2);
 		

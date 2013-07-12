@@ -324,9 +324,6 @@ void HGGameScene::onBuildingScore()
 	
 	float virtualMaxScore = MAX(100000, playInfo->hgscore);
 	float goalScale = MIN(1.3f, 0.6f + (float)hgplay->gameScore.getVar() * 2.f / (float)virtualMaxScore);
-	
-	
-	
 	graphics.scoreFnt->runAction(CCEaseBackOut::create(CCScaleTo::create(1.f, goalScale)));
 }
 void HGGameScene::onScore()

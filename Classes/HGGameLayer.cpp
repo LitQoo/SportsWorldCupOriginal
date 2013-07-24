@@ -674,6 +674,11 @@ bool HGGameLayer::init()
 	initTurningPoint();
 	//	setScale(0.3f);
 	this->setTouchEnabled(true);
+	CCLayerColor* bottom = CCLayerColor::create(ccc4(100, 100, 100, 255), 480, 100);
+	
+	//bottom->setAnchorPoint(ccp(0, 0));
+	bottom->setPosition(ccp(0, -100));
+	addChild(bottom, 3);
 	
 	hgPlayer = HGPlayer::create();
 	addChild(hgPlayer, 4);

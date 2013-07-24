@@ -316,7 +316,7 @@ void HGGameScene::onBuildingScore()
 	if(info.isGameOvering == true)
 		return;
 	
-	KSoundEngine::sharedEngine()->playSound("skigihap.wav");
+	//KSoundEngine::sharedEngine()->playSound("skigihap.wav");
 	bool bShout = false;
 	
 	int adder = lua_tinker::get<int>(lua, "SCORE_PER_BUILDING");

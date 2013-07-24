@@ -637,7 +637,7 @@ void HGGameLayer::upDownProcess()
 		hgPlayer->setRotation(-vertVelocity * 2.f * 2.f);
 		//setRotation(-vertVelocity * 2.f);// * 2.f);
 		float pos = hgPlayer->getPosY() + vertVelocity;
-		float upLimit = lua_tinker::get<int>(lua, "MIN_BUILDING_Y") + lua_tinker::get<int>(lua, "MAX_PASS_SPACING");
+		float upLimit = lua_tinker::get<int>(lua, "MAX_BUILDING_Y") + lua_tinker::get<int>(lua, "MAX_PASS_SPACING");
 		float downLimit = 20.f;
 		float realPos = MIN(upLimit, pos);
 		realPos = MAX(downLimit, realPos);

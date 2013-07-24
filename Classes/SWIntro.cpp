@@ -129,6 +129,7 @@ void SWIntro::finishGetLastestScores(JsonBox::Object js)
 		int wAC = weekly["AC"].getInt();
 		int wBS = weekly["BS"].getInt();
 		int wHW = weekly["HW"].getInt();
+		int wWC = weekly["WORLDCUP"].getInt();
 		
 		int HG = _max["HG"].getInt();
 		int SK = _max["SK"].getInt();
@@ -136,7 +137,7 @@ void SWIntro::finishGetLastestScores(JsonBox::Object js)
 		int AC = _max["AC"].getInt();
 		int BS = _max["BS"].getInt();
 		int HW = _max["HW"].getInt();
-		
+		int WC = _max["WORLDCUP"].getInt();
 		playInfo->hgscore = HG;
 		playInfo->hgweekly = wHG;
 		
@@ -153,7 +154,10 @@ void SWIntro::finishGetLastestScores(JsonBox::Object js)
 		playInfo->bsweekly = wBS;
 		
 		playInfo->hwscore = HW;
-		playInfo->hwweekly = wHW;		
+		playInfo->hwweekly = wHW;
+		
+		playInfo->wcscore = WC;
+		playInfo->wcweekly = wWC;
 	}
 	catch (const string& msg) {
 		
@@ -839,7 +843,7 @@ void SWIntro::finishGetWeek(JsonBox::Object js)
 		{
 			NSDefault::setAttendanceSeq(1); // 1일차
 			NSDefault::setLastAttendance(dayofyear);
-			check = true;
+			check = false;
 		}
 	}
 	
@@ -1373,7 +1377,13 @@ void SWIntro::finishStartScores(JsonBox::Object js)
 void SWIntro::finishStartScores2(CCObject*)
 {
 	playInfo->currentGame = gameType;
-
+	playInfo->wcscore = 0;
+	acplay->initVars();
+	akplay->initVars();
+	bs2play->initVars();
+	hwplay->initVars();
+	skplay->initVars();
+	hgplay->initVars();
 	if(playInfo->currentGame == "WORLDCUP")
 	{
 //		playInfo->selectedItems.clear();

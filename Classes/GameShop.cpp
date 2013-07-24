@@ -232,6 +232,10 @@ void GameShop::initMenu(string gamename, string itemfile1, string itemfile2)
 			checks[4]->setVisible(true);
 			onItem2();
 		}
+		if(playInfo->selectedItems[item2Name] == GameShop::SEL)
+		{
+			CCLog("???");
+		}
 	}
 	
 	saleTable = CCSprite::create("itemshop_totalsale.png");

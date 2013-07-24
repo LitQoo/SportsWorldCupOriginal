@@ -66,7 +66,7 @@ public:
 	}
 	void facebookGetScoresFinish(JsonBox::Value v2);
 	void COUNTRYRANK(CCObject*);
-//	void finishGetWeek(JsonBox::Object js);
+	void finishGetWeek(JsonBox::Object js);
 	void getRequestCountAndTicket(JsonBox::Value v2);
 	void setMediator(UIMediator* m)
 	{

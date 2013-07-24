@@ -51,14 +51,18 @@ HGGameInfo::HGGameInfo()
 			switch(i)
 			{
 				case 0:
-					playInfo->selectedItems[a] = GameShop::RANDOMSEL;
-					playInfo->selectedItems[b] = GameShop::RANDOMSEL;
+					if(playInfo->selectedItems[a] == GameShop::NONE)
+						playInfo->selectedItems[a] = GameShop::RANDOMSEL;
+					if(playInfo->selectedItems[b] == GameShop::NONE)
+						playInfo->selectedItems[b] = GameShop::RANDOMSEL;
 					break;
 				case 1:
-					playInfo->selectedItems[b] = GameShop::RANDOMSEL;
+					if(playInfo->selectedItems[b] == GameShop::NONE)
+						playInfo->selectedItems[b] = GameShop::RANDOMSEL;
 					break;
 				case 2:
-					playInfo->selectedItems[a] = GameShop::RANDOMSEL;
+					if(playInfo->selectedItems[a] == GameShop::NONE)
+						playInfo->selectedItems[a] = GameShop::RANDOMSEL;
 					break;
 				case 3:
 					break;

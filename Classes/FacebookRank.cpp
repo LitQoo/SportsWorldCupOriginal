@@ -46,13 +46,22 @@ FacebookRank::~FacebookRank()
 {
 	FBDelegator::getInstance()->removeTarget(this);
 }
+
+void FacebookRank::finishGetWeek(JsonBox::Object js)
+{
+	if(js["state"].getString() != "ok")
+		return;
+	playInfo->currentWeek = js["week"].getInt();
+	playInfo->whenRecvLeftTime = GameSystem::getCurrentTime_s();
+	mediator->setFacebookLeftTime(js["lefttime"].getInt());
+}
 bool FacebookRank::init()
 {
 //	CCNode::init();
 //	CCNode::create()
 	CCLayer::init();
 	leftTime_s = -1;
-//	graphdog->command("getweek", 0, this, gd_selector(ThisClassType::finishGetWeek));
+	graphdog->command("getweek", 0, this, gd_selector(ThisClassType::finishGetWeek));
 	setTouchEnabled(true);
 	CCSprite* back = CCSprite::create("main_facebook_back.png");
 	

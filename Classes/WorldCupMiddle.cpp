@@ -108,7 +108,7 @@ bool WorldCupMiddle::init()
 	CCLayer::init();
 	CCSpriteFrameCache::sharedSpriteFrameCache()->addSpriteFramesWithFile("flags.plist");
 	_gainScore = gainScore = prevScore;
-	_accScore = wcplay->totalGameScore();
+	_accScore = wcplay->totalGameScore() - prevScore;
 	
 //	wcplay->accScore += wcplay->gameScore.getVar();
 //	updateWeeklyAndMaxScore();

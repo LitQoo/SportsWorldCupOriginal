@@ -59,19 +59,24 @@ struct ACGameInfo
 			switch(i)
 			{
 				case 0:
-					playInfo->selectedItems[a] = GameShop::RANDOMSEL;
-					playInfo->selectedItems[b] = GameShop::RANDOMSEL;
+					if(playInfo->selectedItems[a] == GameShop::NONE)
+						playInfo->selectedItems[a] = GameShop::RANDOMSEL;
+					if(playInfo->selectedItems[b] == GameShop::NONE)
+						playInfo->selectedItems[b] = GameShop::RANDOMSEL;
 					break;
 				case 1:
-					playInfo->selectedItems[b] = GameShop::RANDOMSEL;
+					if(playInfo->selectedItems[b] == GameShop::NONE)
+						playInfo->selectedItems[b] = GameShop::RANDOMSEL;
 					break;
 				case 2:
-					playInfo->selectedItems[a] = GameShop::RANDOMSEL;
+					if(playInfo->selectedItems[a] == GameShop::NONE)
+						playInfo->selectedItems[a] = GameShop::RANDOMSEL;
 					break;
 				case 3:
 					break;
 			}
 		}
+		bonusTime = 0.f;
 //		bonusTime = playInfo->selectedItems["item_random"] ? (float)INIT_GAME_TIME * 0.1f : 0.f;
 	}
 };

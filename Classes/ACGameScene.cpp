@@ -1007,6 +1007,8 @@ void ACGameScene::timeCheck(float dt)
 				}
 #endif
 			}
+			
+			CCLog("bt : %f", -info.bonusTime);
 			if(info.remainTime <= -info.bonusTime && isGameOvering == false)
 			{
 				if(gameStep==GSHandlingBow)

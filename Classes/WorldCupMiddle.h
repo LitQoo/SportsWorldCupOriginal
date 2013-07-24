@@ -66,8 +66,10 @@ public:
 	CREATE_FUNC(WorldCupMiddle);
 	static CCScene* scene(int prevScore) {
 		CCScene* scene = CCScene::create();
-		WorldCupMiddle * layer = WorldCupMiddle::create();
+		WorldCupMiddle * layer = new WorldCupMiddle();
 		layer->prevScore = prevScore;
+		layer->init();
+		layer->autorelease();		
 		scene->addChild(layer);
 		return scene;
 	}

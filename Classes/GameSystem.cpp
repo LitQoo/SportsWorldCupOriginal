@@ -169,14 +169,15 @@ void GameSystem::createWorldcupOrder()
 void GameSystem::initGameAndStart(string game)
 {
 //	wcplay->gameScore = 0;
+	wcplay->initVars();
+	
+	
 	if(game == "AC")
 	{
-		acplay->initVars();
 		ReplaceScene(ACGameScene);
 	}
 	else if(game == "AK")
 	{
-		akplay->initVars();
 		ReplaceScene(AngryGameScene);
 	}
 	else if(game == "BS")

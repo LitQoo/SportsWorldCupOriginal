@@ -122,7 +122,7 @@ void Legendary::loadRecord(string gameType)
 	}
 	else if(gameType == "HG")
 	{
-		CCSprite* bbs = CCSprite::create("worldrecord_alpineski.png");
+		CCSprite* bbs = CCSprite::create("worldrecord_hanggliding.png");
 		bbs->setPosition(ccp(95, 253));
 		thiz->addChild(bbs, 2);
 	}

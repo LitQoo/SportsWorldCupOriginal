@@ -34,6 +34,7 @@ public:
 public:
 	void initVars()
 	{
+		
 //		accScore = 0;
 //		gameScore = 0;
 	}

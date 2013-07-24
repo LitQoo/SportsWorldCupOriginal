@@ -490,7 +490,7 @@ void HGGameLayer::gabageCollector()
 	}
 	for(auto iter = tuningPoints.begin(); iter != tuningPoints.end();)
 	{
-		if(hgPlayer->getPosX() - 200 > iter->bottom.x) // 아래쪽 기준.
+		if(hgPlayer->getPosX() - 1600 > iter->bottom.x) // 아래쪽 기준.
 		{
 			iter = tuningPoints.erase(iter);
 		}
@@ -637,12 +637,28 @@ void HGGameLayer::upDownProcess()
 		hgPlayer->setRotation(-vertVelocity * 2.f * 2.f);
 		//setRotation(-vertVelocity * 2.f);// * 2.f);
 		float pos = hgPlayer->getPosY() + vertVelocity;
-		float upLimit = lua_tinker::get<int>(lua, "MAX_BUILDING_Y") + lua_tinker::get<int>(lua, "MAX_PASS_SPACING");
+		float upLimit = 300;
+		
+		std::pair<CCPoint, CCPoint> pairPoint =  getPairPointWithTop(hgPlayer->getPosX());
+		CCPoint p1 = pairPoint.first;
+		CCPoint p2 = pairPoint.second;
+
+		if(p1.equals(ccp(-100.f, -100.f)) && p2.equals(ccp(-100.f, -100.f)))
+		{
+		}
+		else
+		{
+			float yPosition = (p2.y - p1.y) / (p2.x - p1.x) * (hgPlayer->getPosX() - p1.x) + p1.y;
+			upLimit = yPosition;
+			hgPlayer->setScale(1.f);
+		}
+		
 		float downLimit = 20.f;
+		
 		float realPos = MIN(upLimit, pos);
 		realPos = MAX(downLimit, realPos);
 		
-		if(realPos >= upLimit || realPos <= downLimit)
+		if((realPos >= upLimit || realPos <= downLimit))
 		{
 			vertVelocity = 0;
 		}

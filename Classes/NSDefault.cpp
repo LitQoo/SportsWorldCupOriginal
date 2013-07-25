@@ -3,11 +3,20 @@
 //  HurdleWorldCup
 //
 //  Created by ksoo k on 12. 4. 12..
-//  Copyright (c) 2012³â __MyCompanyName__. All rights reserved.
+//  Copyright (c) 2012â‰¥â€š __MyCompanyName__. All rights reserved.
 //
 
 #include "NSDefault.h"
 #include "SaveData.h"
+
+int NSDefault::getInstallTime()
+{
+	return saveData->getValue("SW_INSTALLTIME", 0);
+}
+void NSDefault::setInstalltime(int t)
+{
+	saveData->setKeyValue("SW_INSTALLTIME", t);
+}
 
 int NSDefault::isSendable(string fbid, int base_s) // 3 hours
 {
@@ -46,7 +55,7 @@ void NSDefault::setInvitable(string fbid)
 
 int NSDefault::getGold()
 {
-	return saveData->getValue("S_PRICE", 99999); // 5000
+	return saveData->getValue("S_PRICE", 5000); // 5000
 }
 int NSDefault::getRuby()
 {

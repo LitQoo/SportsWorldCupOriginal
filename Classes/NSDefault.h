@@ -124,7 +124,7 @@ public:
 	}
 	static int getExp()
 	{
-		return saveData->getValue("S_EXP", 999999);
+		return saveData->getValue("S_EXP", 0);
 	}
 
 
@@ -153,6 +153,8 @@ public:
 	static int isInvitable(string fbid, int base_s = 24 * 60 * 60); // 3 hours
 	static void setInvitable(string fbid);
 	
+	static int getInstallTime();
+	static void setInstalltime(int t);
 //	static int getTimeTodayFree()
 //	{
 //		return saveData->getValue("S_BUYTIME", 0);

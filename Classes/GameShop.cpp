@@ -301,7 +301,7 @@ void GameShop::RANDOM(CCObject* s)
 	CCMenuItemToggle* _s = (CCMenuItemToggle*)s;
 	
 	int i = _s->getSelectedIndex();
-	desc->setString(gt("time").c_str());
+	desc->setString(gt("random").c_str());
 	//선택 해지할 때
 	if(i == 0)
 	{

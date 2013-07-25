@@ -601,6 +601,7 @@ void HGGameScene::onExitZero()
 {
 	graphics.zeroSprite->runAction(CCSequence::create(CCProgressFromTo::create(0.4f, 100.f, 0.f),
 													   0));
+	graphics.watch2->resumeSchedulerAndActions();
 	info.gameMode = HGGameInfo::NORMAL;
 	KSoundEngine::sharedEngine()->playSound("hotshots.mp3");
 	KSoundEngine::sharedEngine()->playSound("exitzero.mp3");
@@ -609,6 +610,7 @@ void HGGameScene::onEnterZero()
 {
 	graphics.zeroSprite->runAction(CCSequence::create(CCProgressFromTo::create(0.4f, 0, 100.f),
 													   0));
+	graphics.watch2->pauseSchedulerAndActions();
 	info.gameMode = HGGameInfo::ZERO;
 	KSoundEngine::sharedEngine()->playSound("RetroSpace.mp3");
 	

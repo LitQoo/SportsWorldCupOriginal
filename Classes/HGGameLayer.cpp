@@ -655,10 +655,10 @@ void HGGameLayer::upDownProcess()
 		
 		float downLimit = 20.f;
 		
-		float realPos = MIN(upLimit, pos);
+		float realPos = isUp ? MIN(upLimit, pos) : pos;
 		realPos = MAX(downLimit, realPos);
 		
-		if((realPos >= upLimit || realPos <= downLimit))
+		if(isUp && (realPos >= upLimit || realPos <= downLimit))
 		{
 			vertVelocity = 0;
 		}

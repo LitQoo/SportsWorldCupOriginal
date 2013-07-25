@@ -49,10 +49,10 @@ protected:
 		selectedItems["item_hanggliding2.png"] = GameShop::NONE;
 	}
 	virtual string getItem1Desc(){
-		return gt("windvalue").c_str();
+		return gt("reducesize").c_str();
 	}
 	virtual string getItem2Desc(){
-		return gt("noshake").c_str();
+		return gt("item_wideview1.png").c_str();
 	}
 public:
 

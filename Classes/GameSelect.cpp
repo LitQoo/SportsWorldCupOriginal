@@ -517,6 +517,7 @@ void GameSelect::UNLOCKSTAGE()
 {
 	if(NSDefault::getGold() >= 5000)
 	{
+		
 		NSDefault::setGold(NSDefault::getGold() - 5000);
 		CCNotificationCenter::sharedNotificationCenter()->postNotification("refreshGold");
 		CCLog("game %s", soonOpenGame.c_str());
@@ -525,7 +526,7 @@ void GameSelect::UNLOCKSTAGE()
 		gameTitles[currentOrder]->lockScreen->removeFromParentAndCleanup(true);
 		gameTitles[currentOrder]->setColor(ccc3(255, 255, 255));
 		playInfo->justOpen = true;
-		
+		KS::KSLog("% %d", __FUNCTION__, __LINE__);
 		CCNotificationCenter::sharedNotificationCenter()->postNotification("openNewGameEffect");
 	}
 	else

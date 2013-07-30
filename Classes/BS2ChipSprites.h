@@ -55,6 +55,7 @@ public:
 	}
 	void removeAllNode()
 	{
+		CCLog("%s %d", __FILE__, __LINE__);
 		for(auto iter = sprites.begin(); iter != sprites.end(); ++iter)
 		{
 			auto _e = *iter;

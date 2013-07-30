@@ -15,6 +15,7 @@
 #include "BS2Play.h"
 #include "HWPlay.h"
 
+
 int WCPlay::totalGameScore()
 {
 	return acplay->gameScore.getVar() + akplay->gameScore.getVar() + skplay->gameScore.getVar() + hgplay->gameScore.getVar() + bs2play->gameScore.getVar() +

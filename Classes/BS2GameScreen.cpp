@@ -109,11 +109,14 @@ void GameScreen::eatCoin(cpShape* shape)
 {
 	KSoundEngine::sharedEngine()->playSound("se_takegold01.mp3");
 	CCLog("twocount?? %x", shape);
+	
+	CCLog("%s %d", __FILE__, __LINE__);
 	coinRemover[shape] = gameTimer;
 }
 
 void GameScreen::removeCoin(cpShape* shape)
 {
+	CCLog("%s %d", __FILE__, __LINE__);
 	coins.erase(shape);
 #if STATIC_OBJECT == 1
 	cpSpaceRemoveStaticShape(space, shape);
@@ -125,7 +128,7 @@ void GameScreen::removeCoin(cpShape* shape)
 	cpBodyFree(shape->body);
 	cpShapeFree(shape);
 #endif
-	
+	CCLog("%s %d", __FILE__, __LINE__);
 	ChipSprites* coinSprites = (ChipSprites*)shape->data;
 	coinSprites->removeAllNode();
 }
@@ -155,6 +158,7 @@ void GameScreen::removeAllCoin()
 static void removeBall(cpSpace *space, void *obj, void *data)
 {
 	GameScreen* gs = (GameScreen*)data;
+	KS::KSLog("% %d", __FUNCTION__, __LINE__);
 	gs->removeBall((cpShape*)obj);
 }
 static void excuteOnExitZeroArea(cpSpace *space, void *obj, void *data)
@@ -164,12 +168,14 @@ static void excuteOnExitZeroArea(cpSpace *space, void *obj, void *data)
 }
 void GameScreen::removeBall(cpShape* shape)
 {
+	KS::KSLog("% %d", __FUNCTION__, __LINE__);
 	ChipSprites* a_chip = (ChipSprites*)(shape->data);
 	int* ud = (int*)(a_chip->getReader()->getUserData());
 	//static int ii = 2;
-	
+	KS::KSLog("% %d", __FUNCTION__, __LINE__);
 	if(ud != (int*)ChipSprites::REMOVING)
 	{
+		KS::KSLog("% %d", __FUNCTION__, __LINE__);
 		a_chip->getReader()->setUserData((void*)ChipSprites::REMOVING);
 //		removeBall_2(this, shape);
 		twoBoundRemover[shape] = gameTimer;
@@ -181,6 +187,7 @@ void GameScreen::removeBall(cpShape* shape)
 
 void GameScreen::removeBall_2(CCNode* node, void* data)
 {
+	KS::KSLog("% %d", __FUNCTION__, __LINE__);
 	cpShape* shape = (cpShape*)data;
 	cpBody* body = shape->body;
 	ChipSprites* a_chip = (ChipSprites*)shape->data;
@@ -197,6 +204,7 @@ void GameScreen::removeBall_2(CCNode* node, void* data)
 	part->setPosition(a_chip->getReader()->getPosition());
 	addChild(part, zorder::BALL_HIDE_EFF);
 	a_chip->removeAllNode();
+	KS::KSLog("% %d", __FUNCTION__, __LINE__);
 }
 static cpBool defaultCollisionFunc(cpArbiter *arb, cpSpace *space, void *data)
 {
@@ -626,14 +634,17 @@ void GameScreen::update(float dt)
 			i++;
 	}
 	
+	
 	for(auto i = coinRemover.begin(); i != coinRemover.end();)
 	{
+		CCLog("%s %d", __FILE__, __LINE__);
 		cpShape* shape = i->first;
 		int p = coins[shape].first.getPrice();
 		cpVect coinPosition = shape->body->p;
 		NSDefault::setGold(NSDefault::getGold() + p);
 		info.ateGoldCount+=p;
 		playInfo->__ateCoin = info.ateGoldCount;
+		CCLog("%s %d", __FILE__, __LINE__);
 		graphics.ateGoldFnt->setString(KS_Util::stringWithFormat("%d", info.ateGoldCount).c_str());
 		{
 			auto retainAnimation = SceneUtil::playAnimation("coin.png", 0.07f, 6, 6, Graphics::COIN_WIDTH, Graphics::COIN_HEIGHT, false);
@@ -645,7 +656,7 @@ void GameScreen::update(float dt)
 			auto moveAction = CCBezierTo::create(1.2f, bc);
 			auto action2 = CCSpawn::create(retainAnimation.first, moveAction, CCScaleTo::create(0.8f, 0.5f)/*, CCFadeOut::create(1.2f)*/, 0); // 가면서 사라짐.
 			auto action3 = CCCallFuncN::create(this, callfuncN_selector(KSBaseScene::deleteSprite));
-			auto totalAction = CCSequence::create(action2, action3);
+			auto totalAction = CCSequence::create(action2, action3, 0);
 			retainAnimation.second->setPosition(ccp(coinPosition.x, coinPosition.y));
 			retainAnimation.second->runAction(totalAction);
 		}

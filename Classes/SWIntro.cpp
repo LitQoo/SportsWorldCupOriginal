@@ -110,6 +110,7 @@ void SWIntro::finishGetLastestScores(JsonBox::Object js)
 	 "param" : {},
 	 "state" : "ok"
 	 */
+	KS::KSLog("%", js);
 	try {
 		//
 		
@@ -119,7 +120,7 @@ void SWIntro::finishGetLastestScores(JsonBox::Object js)
 		}
 //		js["data"].getObject()
 		
-		KS::KSLog("%", js);
+		
 		JsonBox::Object data = js["data"].getObject();
 		JsonBox::Object weekly = data["weekly"].getObject();
 		JsonBox::Object _max = data["max"].getObject();
@@ -1382,7 +1383,7 @@ void SWIntro::finishStartScores(JsonBox::Object js)
 void SWIntro::finishStartScores2(CCObject*)
 {
 	playInfo->currentGame = gameType;
-	playInfo->wcscore = 0;
+//	playInfo->wcscore = 0;
 	acplay->initVars();
 	akplay->initVars();
 	bs2play->initVars();
@@ -1952,6 +1953,8 @@ void SWIntro::disfoldingMenus()
 
 void SWIntro::openNewGameEffect(CCObject*)
 {
+	KS::KSLog("% %d", __FUNCTION__, __LINE__);
+	
 	CCSprite* b = CCSprite::create();
 	b->setTextureRect(CCRectMake(0, 0, 600, 320));
 	b->setColor(ccc3(0, 0, 0));
@@ -1983,7 +1986,7 @@ void SWIntro::openNewGameEffect(CCObject*)
 	comment->setPosition(ccp(240, 160));
 	
 	addChild(comment, 402);
-	
+	KS::KSLog("% %d", __FUNCTION__, __LINE__);
 	comment->runAction(CCSequence::create(CCDelayTime::create(0.25f),
 														CCSpawn::create(CCSequence::create(CCScaleTo::create(0.5f, 1.f), CCDelayTime::create(1.75f), CCScaleTo::create(0.5f, 0.6f), 0),
 																		CCSequence::create(CCFadeTo::create(0.5f, 255), CCDelayTime::create(1.75f), CCFadeTo::create(0.5f, 0), 0),
@@ -1992,6 +1995,8 @@ void SWIntro::openNewGameEffect(CCObject*)
 																		0),
 														CCCallFuncN::create(this, callfuncN_selector(ThisClassType::deleteSprite)),
 														0));
+	
+	KS::KSLog("% %d", __FUNCTION__, __LINE__);
 }
 void SWIntro::onRecvRequestTicket(CCObject* _tds)
 {

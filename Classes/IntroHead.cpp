@@ -249,8 +249,9 @@ void IntroHead::timeChecker(float dt)
 	// 싱크 안되어 있으면 패스.
 	if(isSync == false)
 		return;
-	
 	int heartBaseTime = timestamp + NSDefault::getHeartBaseTime() - oldLocalTime;
+//	CCLog("%d - %d = %d", currentTimeStamp, heartBaseTime, currentTimeStamp - heartBaseTime);
+	
 	if(currentTimeStamp - heartBaseTime >= GameSystem::HEART_CHARGE_TIME &&
 	   NSDefault::getHeartNumber() < GameSystem::DEFAULT_MAX_HEART)
 	{

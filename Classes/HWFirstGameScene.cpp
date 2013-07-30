@@ -378,7 +378,7 @@ void FirstGameScene::timeCheck(float dt)
 			KSoundEngine::sharedEngine()->playSound("timeover.mp3");
 			mator.second->setPosition(ccp(240, 160));
 			mator.second->setScale(1.2f);
-			auto action = CCSequence::create(mator.first, CCCallFunc::create(this, callfunc_selector(ThisClassType::finishTimeOver)));
+			auto action = CCSequence::create(mator.first, CCCallFunc::create(this, callfunc_selector(ThisClassType::finishTimeOver)), 0);
 			mator.second->runAction(action);
 			addChild(mator.second, 10);
 		}

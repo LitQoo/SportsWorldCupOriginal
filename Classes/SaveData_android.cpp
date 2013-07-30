@@ -69,7 +69,7 @@ void testF(string tt)
 	FILE* fp = fopen( path.c_str(), "w" );
 	if(!fp)
 	{
-		CCLog("file failure");
+		CCLog("file failure1");
 	}
 	fprintf(fp, "%s", tt.c_str());
 	fclose(fp);

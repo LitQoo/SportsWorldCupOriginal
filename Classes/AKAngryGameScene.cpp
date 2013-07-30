@@ -527,6 +527,8 @@ void AngryGameScene::onShotBird(bool right)
 bool AngryGameScene::init()
 {
 	CCLayer::init();
+	
+	this->setKeypadEnabled(true);
 	KSoundEngine::sharedEngine()->playSound("hotshots.mp3");
 //	KSoundEngine::sharedEngine()->playSound("beat area.mp3");
 //	KSoundEngine::sharedEngine()->playSound("Block Buster.mp3");
@@ -581,10 +583,7 @@ bool AngryGameScene::init()
 	graphics.watch2->setPosition(ccp(431, 277));
 	addChild(graphics.watch2, 1);
 	graphics.watch2->setVisible(false);
-	graphics.watch3 = CCSprite::create("ui_time3.png");
-	graphics.watch3->setPosition(ccp(431, 277));
-	addChild(graphics.watch3, 1);
-	graphics.watch3->setVisible(false);
+	
 	
 	graphics.timeFnt = CCLabelBMFont::create(KS_Util::stringWithFormat("%.0f", (info.remainTime) * BASETIME / info.INIT_GAME_TIME).c_str(), "time1.fnt");
 	addChild(graphics.timeFnt, 2);
@@ -738,7 +737,7 @@ void AngryGameScene::PAUSE(CCObject*)
 	AKPauseLayer* pauseLayer = AKPauseLayer::create();
 	//pauseLayer->setPosition(ccp(0, -20));
 	addChild(pauseLayer, 1000);
-
+	
 	KS::KSLog("pause");
 }
 void AngryGameScene::finishGo(CCNode* n)
@@ -889,7 +888,7 @@ void AngryGameScene::timeChecker(float dt)
 			KSoundEngine::sharedEngine()->playSound("timeover.mp3");
 			mator.second->setPosition(ccp(240, 160));
 			mator.second->setScale(1.2f);
-			auto action = CCSequence::create(mator.first, CCCallFunc::create(this, callfunc_selector(ThisClassType::finishTimeOver)));
+			auto action = CCSequence::create(mator.first, CCCallFunc::create(this, callfunc_selector(ThisClassType::finishTimeOver)), 0);
 			mator.second->runAction(action);
 			addChild(mator.second, INT_MAX);
 		}

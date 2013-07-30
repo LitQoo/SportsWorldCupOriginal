@@ -256,6 +256,7 @@ obj/local/armeabi/objs/cocos2dcpp_shared/__/__/Classes/GiftCode.o: \
  /Users/ksook/DevLibs/cocos2d-2.1rc0-x-2.1.2/projects/SportsWorldCup/proj.android/../../../cocos2dx/platform/third_party/android/prebuilt/libcurl/include/curl/multi.h \
  /Users/ksook/DevLibs/cocos2d-2.1rc0-x-2.1.2/projects/SportsWorldCup/proj.android/../../../cocos2dx/platform/third_party/android/prebuilt/libcurl/include/curl/curl.h \
  /Users/ksook/DevLibs/android-ndk-r7-crystax-5.beta2/sources/cxx-stl/gnu-libstdc++/include/4.6.3/queue \
+ jni/../../Classes/GDSaveData.h jni/../../Classes/GDSaveData_android.h \
  jni/../../Classes/DisableTouch.h jni/../../Classes/KSModalAlert.h \
  jni/../../Classes/NSDefault.h jni/../../Classes/GameSystem.h \
  jni/../../Classes/CommonGame.h jni/../../Classes/KSProtectVar.h \
@@ -792,6 +793,10 @@ jni/../../Classes/GDLib.h:
 /Users/ksook/DevLibs/cocos2d-2.1rc0-x-2.1.2/projects/SportsWorldCup/proj.android/../../../cocos2dx/platform/third_party/android/prebuilt/libcurl/include/curl/curl.h:
 
 /Users/ksook/DevLibs/android-ndk-r7-crystax-5.beta2/sources/cxx-stl/gnu-libstdc++/include/4.6.3/queue:
+
+jni/../../Classes/GDSaveData.h:
+
+jni/../../Classes/GDSaveData_android.h:
 
 jni/../../Classes/DisableTouch.h:
 

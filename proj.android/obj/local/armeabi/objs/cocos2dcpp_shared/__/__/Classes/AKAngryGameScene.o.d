@@ -352,6 +352,7 @@ obj/local/armeabi/objs/cocos2dcpp_shared/__/__/Classes/AKAngryGameScene.o: \
  jni/../../Classes/AKSaveData.h jni/../../Classes/BS2SaveData.h \
  jni/../../Classes/HWSaveData.h jni/../../Classes/LoadingScene.h \
  jni/../../Classes/GraphDog.h jni/../../Classes/GDLib.h \
+ jni/../../Classes/GDSaveData.h jni/../../Classes/GDSaveData_android.h \
  jni/../../Classes/WorldCupMiddle.h jni/../../Classes/GDTranslate.h \
  jni/../../Classes/AKPlay.h jni/../../Classes/Bridge.h \
  jni/../../Classes/NSDefault.h jni/../../Classes/AKTextureFactory.h \
@@ -1136,6 +1137,10 @@ jni/../../Classes/LoadingScene.h:
 jni/../../Classes/GraphDog.h:
 
 jni/../../Classes/GDLib.h:
+
+jni/../../Classes/GDSaveData.h:
+
+jni/../../Classes/GDSaveData_android.h:
 
 jni/../../Classes/WorldCupMiddle.h:
 

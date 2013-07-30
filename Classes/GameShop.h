@@ -79,8 +79,7 @@ public:
 		levelLimits["exp"] = 1;
 		levelLimits["shield"] = 10;
 		levelLimits["item_random"] = 1; // 25
-		levelLimits[item1Name] = 5;
-		levelLimits[item2Name] = 25;
+		
 	}
 	int getRealPrice()
 	{

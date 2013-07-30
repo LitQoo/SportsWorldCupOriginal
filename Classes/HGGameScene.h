@@ -48,6 +48,10 @@ public:
 	virtual bool init();  
 	CREATE_FUNC(HGGameScene);
     SCENE_FUNC(HGGameScene);
+	void keyBackClicked()
+	{
+		//PAUSE(0);
+	}
 private:
 	void onScore();
 	void onBuildingScore();

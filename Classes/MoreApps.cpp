@@ -224,14 +224,14 @@ void MoreApps::STORE_OK()
 void MoreApps::finishAddCpiEvent(JsonBox::Object js)
 {
 	KS::KSLog("%", js);
-	
+	JsonBox::Object param = js["param"].getObject();
 	try
 	{
 		if(js["state"].getString() != "ok")
 			throw gt("netfail").c_str();
 		KSModalAlert("", gt("rewardafterexe").c_str(), 1,
 					 "YES", this, callfunc_selector(ThisClassType::STORE_OK));
-		storeLocation = js["callback"].getString();
+		storeLocation = param["callback"].getString();
 	}
 	catch(const string& msg)
 	{

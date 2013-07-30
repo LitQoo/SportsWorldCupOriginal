@@ -50,7 +50,10 @@ public:
 	virtual bool init();  
 	CREATE_FUNC(SKGameScene);
     SCENE_FUNC(SKGameScene);
-
+	void keyBackClicked()
+	{
+		//PAUSE(0);
+	}
 private:
 	void PAUSE(CCObject*);
 	virtual bool ccTouchBegan(cocos2d::CCTouch *pTouch, cocos2d::CCEvent *pEvent);

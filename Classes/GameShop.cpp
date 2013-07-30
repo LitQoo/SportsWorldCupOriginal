@@ -40,7 +40,8 @@ void GameShop::initMenu(string gamename, string itemfile1, string itemfile2)
 	
 	addChild(back);
 	thiz = back;
-	
+	levelLimits[item1Name] = 5;
+	levelLimits[item2Name] = 25;
 	CCMenu* pMenu = CCMenu::create();
 	pMenu->setTouchPriority(kCCMenuHandlerPriority - 1);
 	pMenu->setPosition(CCPointZero);

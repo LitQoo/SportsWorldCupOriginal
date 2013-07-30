@@ -74,24 +74,6 @@ void GameScene::onEnterTransitionDidFinish()
 	innerInfo.positionFromTo.init(0, 0, 0.f);
 	interfaceLayer = CCLayer::create();
 //	CCSpriteFrameCache::sharedSpriteFrameCache()->addSpriteFramesWithFile("gameui.plist");
-	{
-		CCLabelBMFont* _plusScore = CCLabelBMFont::create("+333", "hw_bonusfont.fnt");
-		this->addChild(_plusScore);
-		_plusScore->setVisible(false);
-	}
-	{
-		
-		CCLabelBMFont* comboViewer = CCLabelBMFont::create(KS_Util::stringWithFormat("%d"/*"%d COMBO"*/,hwplay->combo.getVar()).c_str(), "hw_combo.fnt");
-		comboViewer->setPosition(ccp(player->getPosition().x+70,player->getPosition().y + player->height() + rootLayer->getPosition().y - 5));
-		comboViewer->setScale(0.6);
-		this->addChild(comboViewer, 12);
-		comboViewer->setVisible(false);
-		//id myAction1 = CCMoveBy::create(0.7, ccp(0,10));
-		//id myAction2 = CCFadeOut::create(0.5);
-		auto myAction1 = CCScaleTo::create(0.3, 1.0);
-		auto myAction2 = CCFadeOut::create(0.3);
-		comboViewer->runAction(CCSequence::create(myAction1,myAction2, CCCallFuncN::create(this, callfuncN_selector(GameScene::finishAnimation)), nil));
-	}
 
 	this->cachingPList();
 
@@ -163,10 +145,7 @@ void GameScene::onEnterTransitionDidFinish()
 	watch2->setPosition(ccp(431, 277));
 	addChild(watch2, 5);
 	watch2->setVisible(false);
-	watch3 = CCSprite::create("ui_time3.png");
-	watch3->setPosition(ccp(431, 277));
-	addChild(watch3, 5);
-	watch3->setVisible(false);
+	
 
 		
 	CCSprite* fever_back = CCSprite::create("ui_zerobar_back.png");
@@ -279,7 +258,7 @@ void GameScene::eatCoin(int n, CCPoint from)
 											  CCBezierTo::create(1.2f, bc), 0);
 		auto action2 = CCSpawn::create(retainAnimation.first, moveAction, CCScaleTo::create(0.8f, 0.5f)/*, CCFadeOut::create(1.2f)*/, 0); // 가면서 사라짐.
 		auto action3 = CCCallFuncN::create(this, callfuncN_selector(ThisClassType::deleteSprite));
-		auto totalAction = CCSequence::create(action2, action3);
+		auto totalAction = CCSequence::create(action2, action3, 0);
 		retainAnimation.second->runAction(totalAction);
 	}
 	
@@ -981,6 +960,7 @@ void GameScene::moveMap(float dt)
 bool GameScene::init()
 {
 	CCLayer::init();
+	setKeypadEnabled(true);
 	KSoundEngine::sharedEngine()->playSound("hotshots.mp3");
 //	KSoundEngine::sharedEngine()->playSound("beat area.mp3");
 //	KSoundEngine::sharedEngine()->playSound("Block Buster.mp3");

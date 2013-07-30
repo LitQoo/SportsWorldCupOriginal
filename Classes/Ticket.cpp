@@ -61,7 +61,7 @@ void Ticket::createRecvTicket(CCArray* _tds)
 	{
 		TicketData* td = (TicketData*)ticketDatas->objectAtIndex(i);
 		
-		sendList += td->from.fbname + ",";
+		sendList += td->from.fbname + "," + gt("ticketnoreq");
 	}
 	
 	sendList.assign(sendList.begin(), sendList.end() - 1);
@@ -108,7 +108,7 @@ void Ticket::createRecvTicketReq(CCArray* _tds)
 	for(int i=0; i<ticketDatas->count(); i++)
 	{
 		TicketData* td = (TicketData*)ticketDatas->objectAtIndex(i);
-		sendList += td->from.fbname + ",";
+		sendList += td->from.fbname + "," + gt("ticketreq");
 	}
 	
 	sendList.assign(sendList.begin(), sendList.end() - 1);

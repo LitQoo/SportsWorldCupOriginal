@@ -92,7 +92,7 @@ void JNIKelper::callJava_otherApp(string packName)
 	__minfo.env = 0;
 	__minfo.methodID = 0;
 	string p;
-	if(JniHelper::getMethodInfo(__minfo, (className + ".KSActivityBase").c_str(), "otherApp", "(Ljava/lang/String;)V"))
+	if(JniHelper::getMethodInfo(__minfo, (className + ".KSActivityBase").c_str(), "openApp", "(Ljava/lang/String;)V"))
 	{
 		__minfo.env->CallVoidMethod(jobj, __minfo.methodID, __minfo.env->NewStringUTF(packName.c_str()));
 		__minfo.env->DeleteLocalRef(__minfo.classID);

@@ -59,7 +59,7 @@ bool SKGameScene::init()
     {
         return false;
     }
-		
+	setKeypadEnabled(true);
 	KSoundEngine::sharedEngine()->playSound("hotshots.mp3");
 	//	KSoundEngine::sharedEngine()->playSound("beat area.mp3");
 //		KSoundEngine::sharedEngine()->playSound("Block Buster.mp3");
@@ -174,10 +174,7 @@ bool SKGameScene::init()
 	graphics.watch2->setPosition(ccp(431, 277));
 	addChild(graphics.watch2, 2);
 	graphics.watch2->setVisible(false);
-	graphics.watch3 = CCSprite::create("ui_time3.png");
-	graphics.watch3->setPosition(ccp(431, 277));
-	addChild(graphics.watch3, 2);
-	graphics.watch3->setVisible(false);
+	
 	
 	graphics.timeFnt = CCLabelBMFont::create(KS_Util::stringWithFormat("%.0f", (info.remainTime) * BASETIME / info.INIT_GAME_TIME).c_str(), "time1.fnt");
 	addChild(graphics.timeFnt, 3);
@@ -727,6 +724,7 @@ void SKGameScene::timeProcess(float dt)
 			}
 #endif
 		}
+		CCLog("z %d", __LINE__);
 		if(info.remainTime <= -info.bonusTime && info.isGameOvering == false)
 		{
 			setTouchEnabled(false);
@@ -735,11 +733,16 @@ void SKGameScene::timeProcess(float dt)
 			graphics.pause->setEnabled(false);
 			auto mator = SceneUtil::playAnimation("timeover.png", 0.1, 2, 4, TIMEOVERWIDTH, TIMEOVERHEIGHT, 8);
 			KSoundEngine::sharedEngine()->playSound("timeover.mp3");
+			CCLog("z %d", __LINE__);
 			mator.second->setPosition(ccp(240, 160));
 			mator.second->setScale(1.2f);
-			auto action = CCSequence::create(mator.first, CCCallFunc::create(this, callfunc_selector(ThisClassType::finishTimeOver)));
+			CCLog("z %d", __LINE__);
+			auto action = CCSequence::create(mator.first, CCCallFunc::create(this, callfunc_selector(ThisClassType::finishTimeOver)), 0);
+			CCLog("z %d", __LINE__);
 			mator.second->runAction(action);
+			CCLog("z %d", __LINE__);
 			addChild(mator.second, INT_MAX);
+			CCLog("z %d", __LINE__);
 		}
 	}
 	
@@ -854,6 +857,7 @@ void SKGameScene::onExitZero()
 	KSoundEngine::sharedEngine()->playSound("hotshots.mp3");
 	KSoundEngine::sharedEngine()->playSound("exitzero.mp3");
 	skChar->runAction(CCMoveBy::create(0.5f, ccp(0, -30)));
+	graphics.watch2->resumeSchedulerAndActions();
 }
 void SKGameScene::onEnterZero()
 {
@@ -863,7 +867,7 @@ void SKGameScene::onEnterZero()
 	KSoundEngine::sharedEngine()->playSound("RetroSpace.mp3");
 	
 	KSoundEngine::sharedEngine()->playSound("fever.mp3");
-	
+	graphics.watch2->pauseSchedulerAndActions();
 //	skChar->runAction(CCMoveBy::create(0.5f, ccp(0, 30)));
 }
 // Touch
@@ -941,7 +945,7 @@ void SKGameScene::eatCoin(int n)
 	NSDefault::setGold(NSDefault::getGold() + n);
 	info.ateGoldCount+=n;
 	playInfo->__ateCoin = info.ateGoldCount;
-	graphics.ateGoldFnt->setString(KS_Util::stringWithFormat("%d", info.ateGoldCount).c_str());
+	graphics.ateGoldFnt->setString(KS_Util::stringWithFormat("%d", info.ateGoldCount).c_str());CCLog("%d", __LINE__);
 	for(int i=0; i<n; i++)
 	{
 		auto retainAnimation = SceneUtil::playAnimation("coin.png", 0.07f, 6, 6,
@@ -949,17 +953,23 @@ void SKGameScene::eatCoin(int n)
 		addChild(retainAnimation.second, 2);
 		retainAnimation.second->setPosition(ccp(240, 20));
 		retainAnimation.second->setScale(0.3f);
+
 		ccBezierConfig bc;
 		bc.controlPoint_1 = retainAnimation.second->getPosition();
 		bc.controlPoint_2 = ccp(450 + rand()%50, 50);
 		bc.endPosition = ccp(441, 221);
+
 		auto moveAction = CCSequence::create(CCDelayTime::create(i * 0.2f), KSFunc(KSoundEngine::sharedEngine()->playSound("se_takegold01.mp3");),
 											  CCSpawn::create(CCBezierTo::create(1.2f, bc), CCScaleTo::create(1.2f, 1.f), 0), 0 );
-		auto action2 = CCSpawn::create(retainAnimation.first, moveAction/*, CCFadeOut::create(1.2f)*/, 0); // 가면서 사라짐.
+
+		auto action2 = CCSpawn::createWithTwoActions(retainAnimation.first, moveAction); // 가면서 사라짐.
+
 		auto action3 = CCCallFuncN::create(this, callfuncN_selector(ThisClassType::deleteSprite));
-		auto totalAction = CCSequence::create(action2, action3);
+
+		auto totalAction = CCSequence::create(action2, action3, 0);
 		retainAnimation.second->runAction(totalAction);
-	}	
+	}
+	CCLog("e2");
 }
 
 

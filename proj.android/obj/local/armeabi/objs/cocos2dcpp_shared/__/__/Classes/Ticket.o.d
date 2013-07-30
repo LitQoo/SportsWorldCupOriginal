@@ -354,6 +354,7 @@ obj/local/armeabi/objs/cocos2dcpp_shared/__/__/Classes/Ticket.o: \
  jni/../../Classes/GDTranslate.h jni/../../Classes/GraphDog.h \
  jni/../../Classes/GDLib.h \
  /Users/ksook/DevLibs/android-ndk-r7-crystax-5.beta2/sources/cxx-stl/gnu-libstdc++/include/4.6.3/queue \
+ jni/../../Classes/GDSaveData.h jni/../../Classes/GDSaveData_android.h \
  jni/../../Classes/KSModalAlert.h jni/../../Classes/Bridge.h \
  jni/../../Classes/NSDefault.h jni/../../Classes/GameSystem.h \
  jni/../../Classes/CommonGame.h jni/../../Classes/KSProtectVar.h \
@@ -1087,6 +1088,10 @@ jni/../../Classes/GraphDog.h:
 jni/../../Classes/GDLib.h:
 
 /Users/ksook/DevLibs/android-ndk-r7-crystax-5.beta2/sources/cxx-stl/gnu-libstdc++/include/4.6.3/queue:
+
+jni/../../Classes/GDSaveData.h:
+
+jni/../../Classes/GDSaveData_android.h:
 
 jni/../../Classes/KSModalAlert.h:
 

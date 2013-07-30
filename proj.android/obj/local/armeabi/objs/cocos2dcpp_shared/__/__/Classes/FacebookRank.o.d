@@ -377,6 +377,7 @@ obj/local/armeabi/objs/cocos2dcpp_shared/__/__/Classes/FacebookRank.o: \
  jni/../../Classes/ACSaveData.h jni/../../Classes/AKSaveData.h \
  jni/../../Classes/BS2SaveData.h jni/../../Classes/HWSaveData.h \
  jni/../../Classes/GraphDog.h jni/../../Classes/GDLib.h \
+ jni/../../Classes/GDSaveData.h jni/../../Classes/GDSaveData_android.h \
  jni/../../Classes/KSLabelTTF.h jni/../../Classes/SceneUtil.h \
  jni/../../Classes/GDTranslate.h jni/../../Classes/Ticket.h
 
@@ -1185,6 +1186,10 @@ jni/../../Classes/HWSaveData.h:
 jni/../../Classes/GraphDog.h:
 
 jni/../../Classes/GDLib.h:
+
+jni/../../Classes/GDSaveData.h:
+
+jni/../../Classes/GDSaveData_android.h:
 
 jni/../../Classes/KSLabelTTF.h:
 

@@ -55,7 +55,7 @@ void NSDefault::setInvitable(string fbid)
 
 int NSDefault::getGold()
 {
-	return saveData->getValue("S_PRICE", 5000); // 5000
+	return saveData->getValue("S_PRICE", 99999); // 5000
 }
 int NSDefault::getRuby()
 {

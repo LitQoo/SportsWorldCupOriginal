@@ -369,7 +369,8 @@ obj/local/armeabi/objs/cocos2dcpp_shared/__/__/Classes/AppDelegate.o: \
  jni/../../Classes/HWSaveData.h jni/../../Classes/GameSystem.h \
  jni/../../Classes/CommonGame.h jni/../../Classes/KSProtectVar.h \
  jni/../../Classes/GameShop.h jni/../../Classes/GraphDog.h \
- jni/../../Classes/GDLib.h jni/../../Classes/NSDefault.h \
+ jni/../../Classes/GDLib.h jni/../../Classes/GDSaveData.h \
+ jni/../../Classes/GDSaveData_android.h jni/../../Classes/NSDefault.h \
  jni/../../Classes/KS_Util.h \
  /Users/ksook/DevLibs/android-ndk-r7-crystax-5.beta2/sources/cxx-stl/gnu-libstdc++/include/4.6.3/iterator \
  /Users/ksook/DevLibs/android-ndk-r7-crystax-5.beta2/sources/cxx-stl/gnu-libstdc++/include/4.6.3/locale \
@@ -394,7 +395,10 @@ obj/local/armeabi/objs/cocos2dcpp_shared/__/__/Classes/AppDelegate.o: \
  jni/../../Classes/SKGraphics.h jni/../../Classes/SKPlay.h \
  jni/../../Classes/HGGameScene.h jni/../../Classes/HGGameInfo.h \
  jni/../../Classes/HGGraphics.h jni/../../Classes/Bridge.h \
- jni/../../Classes/ProbSelector.h
+ jni/../../Classes/ProbSelector.h \
+ /Users/ksook/DevLibs/cocos2d-2.1rc0-x-2.1.2/projects/SportsWorldCup/proj.android/../../../scripting/lua/proj.android/jni/../../cocos2dx_support/CCLuaEngine.h \
+ /Users/ksook/DevLibs/cocos2d-2.1rc0-x-2.1.2/projects/SportsWorldCup/proj.android/../../../scripting/lua/proj.android/jni/../../cocos2dx_support/CCLuaStack.h \
+ /Users/ksook/DevLibs/cocos2d-2.1rc0-x-2.1.2/projects/SportsWorldCup/proj.android/../../../scripting/lua/proj.android/jni/../../cocos2dx_support/CCLuaValue.h
 
 jni/../../Classes/AppDelegate.h:
 
@@ -1186,6 +1190,10 @@ jni/../../Classes/GraphDog.h:
 
 jni/../../Classes/GDLib.h:
 
+jni/../../Classes/GDSaveData.h:
+
+jni/../../Classes/GDSaveData_android.h:
+
 jni/../../Classes/NSDefault.h:
 
 jni/../../Classes/KS_Util.h:
@@ -1255,3 +1263,9 @@ jni/../../Classes/HGGraphics.h:
 jni/../../Classes/Bridge.h:
 
 jni/../../Classes/ProbSelector.h:
+
+/Users/ksook/DevLibs/cocos2d-2.1rc0-x-2.1.2/projects/SportsWorldCup/proj.android/../../../scripting/lua/proj.android/jni/../../cocos2dx_support/CCLuaEngine.h:
+
+/Users/ksook/DevLibs/cocos2d-2.1rc0-x-2.1.2/projects/SportsWorldCup/proj.android/../../../scripting/lua/proj.android/jni/../../cocos2dx_support/CCLuaStack.h:
+
+/Users/ksook/DevLibs/cocos2d-2.1rc0-x-2.1.2/projects/SportsWorldCup/proj.android/../../../scripting/lua/proj.android/jni/../../cocos2dx_support/CCLuaValue.h:

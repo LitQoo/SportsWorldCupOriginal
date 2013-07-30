@@ -72,7 +72,7 @@ bool RubyShop::init()
 	close->setPosition(ccp(234, 263));
 	_menu->addChild(close, 2);
 	
-	for(int i=0; i<5; i++)
+	for(int i=0; i<6; i++)
 	{
 		string filename = KS_Util::stringWithFormat("shop_ruby%d.png", i+1);
 		
@@ -99,12 +99,13 @@ bool RubyShop::init()
 				item = CCMenuItemImage::create(filename.c_str(), filename.c_str(),
 															this, menu_selector(ThisClassType::PIER5));
 				break;
-//			case 5:
-//				item = CCMenuItemImage::create("option_giftcode.png", "option_giftcode.png",
-//															this, menu_selector(ThisClassType::PIER6));
-//				break;
-			
-		}			
+			#if CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID
+				case 5:
+					item = CCMenuItemImage::create("option_giftcode.png", "option_giftcode.png",
+																this, menu_selector(ThisClassType::PIER6));
+					break;
+			#endif
+		}
 		
 		item->setPosition(position.pier[i]);
 		_menu->addChild(item, 2);

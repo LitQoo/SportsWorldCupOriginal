@@ -399,6 +399,7 @@ void SWIntro::afterInit()
 		GraphDog::get()->setFlag(NSDefault::getCountry());
 		CCLog("%s %d", __FILE__, __LINE__);
 		GraphDog::get()->setNick(NSDefault::getUserName());
+		CCLog("getUserName %s", NSDefault::getUserName().c_str());
 		CCLog("%s %d", __FILE__, __LINE__);
 		GraphDog::get()->setup("sportsworldcup", "GDSK3388", "com.litqoo.lib", 16);
 		CCLog("AfterInit Exit %d", __LINE__);
@@ -1339,8 +1340,12 @@ void SWIntro::finishStartScores(JsonBox::Object js)
 			{
 				introHead->removeHeartAnimation();
 				if(NSDefault::getHeartNumber() == 5)
+				{
+					CCLog("give time");
 					NSDefault::setHeartBaseTime(GameSystem::getCurrentTime_s());
+				}
 				NSDefault::setHeartNumber(NSDefault::getHeartNumber() - 1);
+				CCLog("u? %d", NSDefault::getHeartNumber());
 			}
 			
 		}
@@ -1816,7 +1821,7 @@ void SWIntro::showGiftCode()
 	{
 		giftCodeWindow = GiftCode::create(this);
 		giftCodeWindow->setPosition(ccp(200, 500));
-		addChild(clayWindow, 3);
+		addChild(giftCodeWindow, 3);
 	}
 	KSoundEngine::sharedEngine()->playSound("slot.mp3");
 	giftCodeWindow->setPosition(ccp(143, -144));

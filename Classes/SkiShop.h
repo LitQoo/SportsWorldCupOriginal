@@ -51,10 +51,10 @@ protected:
 	}
 	
 	virtual string getItem1Desc(){
-		return gt("windvalue").c_str();
+		return gt("wideflag").c_str();
 	}
 	virtual string getItem2Desc(){
-		return gt("noshake").c_str();
+		return gt("leftrightspeed").c_str();
 	}
 public:
 

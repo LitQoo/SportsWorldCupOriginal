@@ -20,7 +20,7 @@ struct ACGraphics
 		CCProgressTimer* leftWind, *rightWind;
 		CCLabelBMFont* windValue;
 	CCLabelBMFont* ateGoldFnt;
-	CCSprite* watch1, *watch2, *watch3;
+	CCSprite* watch1, *watch2;
 	CCSprite* leftHead, *rightHead;
 	CCProgressTimer* zeroSprite;
 	CCMenuItem* pause;

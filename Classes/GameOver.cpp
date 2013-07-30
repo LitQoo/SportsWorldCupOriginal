@@ -172,6 +172,7 @@ void GameOver::appearMe()
 		mediator->showExp2();
 	}
 	
+	CCLog("gain Score %d", score);
 	pair<int, int> lv_exp = playInfo->getLV_EXP(NSDefault::getExp());
 	 // 경험치 얻을 수 있는 맥스치를 정해줌, 그리고 얻은 경험치를 어느 정도 절삭함.
 	int getExp = MIN(playInfo->expFromLv(lv_exp.first), powf(score, 0.70f) * 10.f / 10000.f);
@@ -199,7 +200,7 @@ void GameOver::finishGetScores(JsonBox::Object js)
 //	CCLog("**********************************************************************\n%s", oss.str().c_str());
 	
 	try {
-//		KS::KSLog("%", js);
+		KS::KSLog("%", js);
 		KS::KSLog("%", js["state"].getString().c_str());
 		if(js["state"].getString() != "ok")
 			throw string(gt("retrying").c_str());

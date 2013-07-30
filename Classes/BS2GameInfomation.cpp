@@ -18,7 +18,7 @@ const float BS2GameInformation::AFTER_JUDGE_TIME = 0.3f;
 
 const float BS2GameInformation::ZERO_DEC_VALUE = -0.06f;//-0.06f;
 const float BS2GameInformation::INC_VALUE_IN_ZERO = 7.f; // 13.f
-const float BS2GameInformation::INC_VALUE_IN_NORMAL = 8.f; // 12.f
+const float BS2GameInformation::INC_VALUE_IN_NORMAL = 8.f;// 8.f; // 12.f
 const float BS2GameInformation::NOGOAL_DEC_VALUE_IN_NORMAL = 0.f;
 const float BS2GameInformation::NOGOAL_DEC_VALUE_IN_ZERO = -25.f;//-25.f;
 int BS2GameInformation::INIT_GAME_TIME = 40;

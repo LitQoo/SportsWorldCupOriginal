@@ -30,8 +30,7 @@ public:
 	{
         CCLog("set JNI");
 		if(JniHelper::getStaticMethodInfo(minfo, "com.litqoo.lib.FBConnectorBase", "getActivity", "()Ljava/lang/Object;"))
-		{
-            
+		{            
             CCLog("set JNI2");
 			jobj =  minfo.env->NewGlobalRef(minfo.env->CallStaticObjectMethod(minfo.classID, minfo.methodID));
             

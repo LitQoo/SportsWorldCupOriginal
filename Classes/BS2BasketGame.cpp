@@ -69,6 +69,7 @@ bool BasketGame::init()
 {
 	KS::KSLog("%, %", __FILE__, __LINE__);
 	CCLayerColor::initWithColor(ccc4(255, 255, 0, 255));
+	setKeypadEnabled(true);
 	KSoundEngine::sharedEngine()->playSound("hotshots.mp3");
 //	KSoundEngine::sharedEngine()->playSound("beat area.mp3");
 //	KSoundEngine::sharedEngine()->playSound("Block Buster.mp3");
@@ -179,11 +180,7 @@ bool BasketGame::init()
 	watch2->setPosition(ccp(431, 277));
 	addChild(watch2, 1);
 	watch2->setVisible(false);
-	watch3 = CCSprite::create("ui_time3.png");
-	watch3->setPosition(ccp(431, 277));
-	addChild(watch3, 1);
-	watch3->setVisible(false);
-	
+		
 	timeFnt = CCLabelBMFont::create("        ", "time1.fnt");
 	addChild(timeFnt, 2);
 	timeFnt->setPosition(ccp(431,274));
@@ -439,12 +436,13 @@ void BasketGame::timeOver()
 	KSoundEngine::sharedEngine()->playSound("timeover.mp3");
 	mator.second->setPosition(ccp(240, 160));
 	mator.second->setScale(1.2f);
-	auto action = CCSequence::create(mator.first, CCCallFunc::create(gameScreen, callfunc_selector(GameScreen::finishTimeOver)));
+	auto action = CCSequence::create(mator.first, CCCallFunc::create(gameScreen, callfunc_selector(GameScreen::finishTimeOver)), 0);
 	mator.second->runAction(action);
 	addChild(mator.second, INT_MAX);
 }
 void BasketGame::setBonusTime()
 {
+	#if 0
 	if(!watch3->isVisible())
 	{
 		watch2->setVisible(false);
@@ -456,7 +454,7 @@ void BasketGame::setBonusTime()
 		mator.second->setPosition(ccp(431, 277));
 		addChild(mator.second, 10);
 	}
-	
+	#endif
 }
 void BasketGame::pointMaxSprite()
 {

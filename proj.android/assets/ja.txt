@@ -15,6 +15,10 @@
 "exp" : "経験数を二倍差し上げます。",
 "shield" : "コンボ失敗を一度防いであげます。",
 "time" : "ゲーム時間をもっと差し上げます。",
+"random" : "ITEMがRandomで選択します。",
+"reducesize" : "大きさを減らします。",
+"leftrightspeed" : "左右移動のスピードを上げます。 ",
+"wideflag" : "旗の間隔を広げます。",
 "item_highhurdle1.png" : "高いハードルを除去します。",
 "item_wideview1.png" : "視野を広げます。",
 "item_bird1.png" : "鳥が出てくる確率を減少させます。",
@@ -25,10 +29,16 @@
 "item_tipin1.png" : "ボールが弾け出てくる時、ボールにタッチしてください。",
 "yes" : "Yes",
 "no" : "No",
+"sended" : "チケットを送りました。",
+"openstagewithgold" : "ゴールドを用いてゲームを買いますか。",
 "update" : "最新バージョンがリリースされました。アップデートしますか?",
 "mustupdate" : "最新バージョンにアップデートするとプレーできます。",
 "usebackboard" : "バックボードを使ってください。",
 "nick_length" : "ニックネームは8字以下で入力してください。",
 "selectflag" : "国家を選択してください。 ",
+"youneedticket" : "新しいゲームを開けるためにticketが要ります。 友だちにticketを要請してください。 ",
+"ticketreq" : "友だちからTicketの要請が送ってきました。 ",
+"ticketnoreq" : "友だちからticketが着きました。 ",
 "itemnumberlimit" : "一度のゲームに使用できるアイテムの種類は最大3種類です。",
-"itemnumberlimit2" : "一度のゲームに使用できるアイテムの種類は最大5種類です。"
+"itemnumberlimit2" : "アイテムを選りません。"
+

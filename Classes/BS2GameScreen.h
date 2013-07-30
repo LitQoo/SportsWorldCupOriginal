@@ -174,6 +174,8 @@ private: // functions
 		graphdog->command("getweek", 0, this, gd_selector(ThisClassType::finishGetWeek));
 	}
 private: // vars
+	std::map<cpShape*, float> twoBoundRemover;
+	std::map<cpShape*, float> coinRemover;
 	enum {BACKGROUND_NUMBER = 10};
 	enum {DOWNSCROLL = 0x123123};
 	//BallBase

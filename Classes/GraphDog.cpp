@@ -62,32 +62,33 @@ string GraphDog::getGraphDogVersion(){
 }
 
 void GraphDog::setup(string appID,string secretKey,string _packageName,int _appVersion){
+	
     aID=appID;
     sKey=secretKey;
+
 	this->packageName=_packageName;
     string deviceId = getDeviceID();
 	this->setUdid(deviceId);
     std::ostringstream ostr;
     ostr << _appVersion;
     this->appVersion=ostr.str();
-#if COCOS2D_VERSION >= 0x00020100
-	// in cocos2d-x 2.x
-	// SEL_SCHEDULE pfnSelector, CCObject *pTarget, float fInterval, unsigned int repeat, float delay, bool bPaused
-	CCDirector::sharedDirector()->getScheduler()->scheduleSelector(schedule_selector(GraphDog::receivedCommand), this, 0.f, false);
-#elif COCOS2D_VERSION >= 0x00020000
-	CCDirector::sharedDirector()->getScheduler()->scheduleSelector(, 0.f, false, kCCRepeatForever, 0);
-#else
+
+#if COCOS2D_VERSION<0x00020000
+	// in cocos2d-x 1.x
 	CCScheduler::sharedScheduler()->scheduleSelector(schedule_selector(GraphDog::receivedCommand), this, 0,false);
+#else
+	// in cocos2d-x 2.x
+//	CCDirector::sharedDirector()->getScheduler()->scheduleSelector(schedule_selector(GraphDog::receivedCommand), this, 0.f, false, kCCRepeatForever, 0);
+	CCDirector::sharedDirector()->getScheduler()->scheduleSelector(schedule_selector(GraphDog::receivedCommand), this, 0.f, 0xFFFFFFFF, 0, false);
 #endif
 	setLanguage(GraphDogLib::getLocalCode());
 }
 
 void GraphDog::setAuID(string appuserID){
-    CCUserDefault::sharedUserDefault()->setStringForKey("GRAPHDOG_AUID", appuserID.c_str());
-    CCUserDefault::sharedUserDefault()->flush();
+	gdSaveData->setKeyValue("GRAPHDOG_AUDI", appuserID);
 }
 string GraphDog::getAuID(){
-    return CCUserDefault::sharedUserDefault()->getStringForKey("GRAPHDOG_AUID");
+	return gdSaveData->getValue("GRAPHDOG_AUID", "");
 }
 string GraphDog::getUdid(){
     return udid;
@@ -99,12 +100,12 @@ string GraphDog::getAppVersionString(){
     return appVersion;
 }
 void GraphDog::setEmail(string email){
-    CCUserDefault::sharedUserDefault()->setStringForKey("GRAPHDOG_EMAIL", email);
-    CCUserDefault::sharedUserDefault()->flush();
+	gdSaveData->setKeyValue("GRAPHDOG_EMAIL", email);
+
 }
 
 string GraphDog::getEmail(){
-    return CCUserDefault::sharedUserDefault()->getStringForKey("GRAPHDOG_EMAIL");
+	return gdSaveData->getValue("GRAPHDOG_EMAIL", "");
 }
 string GraphDog::getPlatform(){
 #if CC_TARGET_PLATFORM == CC_PLATFORM_IOS
@@ -117,14 +118,11 @@ string GraphDog::getPlatform(){
 }
 
 void GraphDog::setCTime(string cTime){
-    CCUserDefault::sharedUserDefault()->setStringForKey("GRAPHDOG_CTIME", cTime);
-    CCUserDefault::sharedUserDefault()->flush();
+	gdSaveData->setKeyValue("GRAPHDOG_CTIME", cTime);
 }
 
 string GraphDog::getCTime(){
-    string ctime= CCUserDefault::sharedUserDefault()->getStringForKey("GRAPHDOG_CTIME");
-    if(ctime=="")ctime="9999";
-    return ctime;
+	return gdSaveData->getValue("GRAPHDOG_CTIME", "9999");
 }
 
 string GraphDog::getToken(){
@@ -146,32 +144,27 @@ string GraphDog::getToken(){
 
 void GraphDog::setNick(string nick){
     GraphDogLib::replaceString(nick,"|","l");
-    CCUserDefault::sharedUserDefault()->setStringForKey("GRAPHDOG_NICK", nick);
-    CCUserDefault::sharedUserDefault()->flush();
+	gdSaveData->setKeyValue("GRAPHDOG_NICK", nick);
 }
 
 string GraphDog::getNick(){
-    return CCUserDefault::sharedUserDefault()->getStringForKey("GRAPHDOG_NICK");
+	return gdSaveData->getValue("GRAPHDOG_NICK", "");
 }
 
 void GraphDog::setFlag(string flag){
-    CCUserDefault::sharedUserDefault()->setStringForKey("GRAPHDOG_FLAG", flag);
-    CCUserDefault::sharedUserDefault()->flush();
+	gdSaveData->setKeyValue("GRAPHDOG_FLAG", flag);
 }
 
 string GraphDog::getFlag(){
-    return CCUserDefault::sharedUserDefault()->getStringForKey("GRAPHDOG_FLAG");
+	return gdSaveData->getValue("GRAPHDOG_FLAG", "");
 }
 
 void GraphDog::setLanguage(string lang){
-    CCUserDefault::sharedUserDefault()->setStringForKey("GRAPHDOG_LANG", lang);
-    CCUserDefault::sharedUserDefault()->flush();
+	gdSaveData->setKeyValue("GRAPHDOG_LANG", lang);
 }
 
 string GraphDog::getLanguage(){
-    string lang = CCUserDefault::sharedUserDefault()->getStringForKey("GRAPHDOG_LANG");
-    if(lang=="")lang="en";
-    return lang;
+	return gdSaveData->getValue("GRAPHDOG_LANG", "en");
 }
 
 CURL* GraphDog::getCURL(){
@@ -253,6 +246,19 @@ bool GraphDog::command(string action, const JsonBox::Object* const param,CCObjec
     std::vector<CommandParam> p;
 	p.push_back(cp);
 	this->command(p);
+    return true;
+}
+
+bool GraphDog::test(string action, const JsonBox::Object* const param,CCObject *target, GDSelType selector, JsonBox::Object result){
+    result["param"] = *param;
+    if(target!=0 && selector!=0) ((target)->*(selector))(result);
+    return true;
+}
+
+bool GraphDog::test(string action, const JsonBox::Object* const param,CCObject *target, GDSelType selector, string result){
+    JsonBox::Object resultObj = GraphDogLib::StringToJsonObject(result);
+    
+    this->test(action,param,target,selector,resultObj);
     return true;
 }
 
@@ -529,6 +535,7 @@ std::string GraphDog::getDeviceID() {
 	//_id = JNIKelper::getInstance()->callJava_getUDID();
 	JniMethodInfo minfo;
 	jobject jobj;
+	
 	if(JniHelper::getStaticMethodInfo(minfo, (packageName + ".KSAWrap").c_str(), "getActivity", "()Ljava/lang/Object;"))
 	{
 		jobj = minfo.env->NewGlobalRef(minfo.env->CallStaticObjectMethod(minfo.classID, minfo.methodID));
@@ -536,9 +543,11 @@ std::string GraphDog::getDeviceID() {
 		__minfo.classID = 0;
 		__minfo.env = 0;
 		__minfo.methodID = 0;
+		CCLog("qqq");
 		if(JniHelper::getMethodInfo(__minfo, (packageName + ".KSActivityBase").c_str(), "getUDID", "()Ljava/lang/String;"))
 		{
 			jstring jstrTitle = (jstring) __minfo.env->CallObjectMethod(jobj, __minfo.methodID);
+			
 			if(jstrTitle)
 			{
 				char* pszTitle = (char*)__minfo.env->GetStringUTFChars(jstrTitle, JNI_FALSE);

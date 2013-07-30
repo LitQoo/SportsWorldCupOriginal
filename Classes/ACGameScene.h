@@ -62,6 +62,10 @@ public:
 	virtual bool init();  
 	CREATE_FUNC(ACGameScene);
     SCENE_FUNC(ACGameScene);
+	void keyBackClicked()
+	{
+		//PAUSE(0);
+	}
 private:
 	enum TARGET{_100, _80, _60, _40} target;
 	enum {COMBO_COLS = 3, COMBO_FRAME=6, COMBO_WIDTH = 120, COMBO_HEIGHT = 120};

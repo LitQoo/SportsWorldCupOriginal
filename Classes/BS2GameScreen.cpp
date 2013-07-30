@@ -108,42 +108,8 @@ static void eatCoin(cpSpace *space, void *obj, void *data)
 void GameScreen::eatCoin(cpShape* shape)
 {
 	KSoundEngine::sharedEngine()->playSound("se_takegold01.mp3");
-	int p = coins[shape].first.getPrice();
-	cpVect coinPosition = shape->body->p;
-	NSDefault::setGold(NSDefault::getGold() + p);
-	info.ateGoldCount+=p;
-	playInfo->__ateCoin = info.ateGoldCount;
-	graphics.ateGoldFnt->setString(KS_Util::stringWithFormat("%d", info.ateGoldCount).c_str());
-	{
-		auto retainAnimation = SceneUtil::playAnimation("coin.png", 0.07f, 6, 6, Graphics::COIN_WIDTH, Graphics::COIN_HEIGHT, false);
-		addChild(retainAnimation.second, zorder::EAT_COIN_EFF);
-		ccBezierConfig bc;
-		bc.controlPoint_1 = retainAnimation.second->getPosition();
-		bc.controlPoint_2 = ccp(700, 100);
-		bc.endPosition = ccp(520, 10);
-		auto moveAction = CCBezierTo::create(1.2f, bc);
-		auto action2 = CCSpawn::create(retainAnimation.first, moveAction, CCScaleTo::create(0.8f, 0.5f)/*, CCFadeOut::create(1.2f)*/, 0); // 가면서 사라짐.
-		auto action3 = CCCallFuncN::create(this, callfuncN_selector(KSBaseScene::deleteSprite));
-		auto totalAction = CCSequence::create(action2, action3);
-		retainAnimation.second->setPosition(ccp(coinPosition.x, coinPosition.y));
-		retainAnimation.second->runAction(totalAction);
-	}
-	pBasketGame->eatCoin(p);
-	
-	coins.erase(shape);
-#if STATIC_OBJECT == 1
-	cpSpaceRemoveStaticShape(space, shape);
-	cpSpaceRemoveBody(space, shape->body);
-	cpBodyFree(shape->body);
-	cpShapeFree(shape);
-#else
-	cpSpaceRemoveShape(space, shape);
-	cpBodyFree(shape->body);
-	cpShapeFree(shape);
-#endif
-	
-	ChipSprites* coinSprites = (ChipSprites*)shape->data;
-	coinSprites->removeAllNode();
+	CCLog("twocount?? %x", shape);
+	coinRemover[shape] = gameTimer;
 }
 
 void GameScreen::removeCoin(cpShape* shape)
@@ -201,13 +167,15 @@ void GameScreen::removeBall(cpShape* shape)
 	ChipSprites* a_chip = (ChipSprites*)(shape->data);
 	int* ud = (int*)(a_chip->getReader()->getUserData());
 	//static int ii = 2;
+	
 	if(ud != (int*)ChipSprites::REMOVING)
 	{
 		a_chip->getReader()->setUserData((void*)ChipSprites::REMOVING);
-		auto seq = CCSequence::create(CCDelayTime::create(2.f),
-											CCCallFuncND::create(this, callfuncND_selector(GameScreen::removeBall_2), shape));
-		
-		runAction(seq);
+//		removeBall_2(this, shape);
+		twoBoundRemover[shape] = gameTimer;
+//		auto seq = CCSequence::create(CCDelayTime::create(2.f),
+//											CCCallFuncND::create(this, callfuncND_selector(GameScreen::removeBall_2), shape));
+//		runAction(seq);
 	}
 }
 
@@ -224,7 +192,7 @@ void GameScreen::removeBall_2(CCNode* node, void* data)
 	cpSpaceRemoveBody(space, body);
 	cpBodyFree(body);
 	
-	CCParticleSystem* part = CCParticleSystem::create("balldisappeareffect.plist");
+	CCParticleSystemQuad* part = CCParticleSystemQuad::create("balldisappeareffect.plist");
 	part->setAutoRemoveOnFinish(true);
 	part->setPosition(a_chip->getReader()->getPosition());
 	addChild(part, zorder::BALL_HIDE_EFF);
@@ -311,9 +279,10 @@ static cpBool collisionFunc(cpArbiter *arb, cpSpace *space, void *data)
 				}
 			}
 			(*pCurrentBalls)[a].setGrounding();
-			if((*pCurrentBalls)[a].getGroundCount() >= 2)
+			if((*pCurrentBalls)[a].getGroundCount() == 2)
 			{
 				//GameScreen* gs = (GameScreen*)(cs->getReader()->getParent());
+				CCLog("callremoveball");
 				cpSpaceAddPostStepCallback(space, removeBall, a, gs);
 			}
 			
@@ -546,7 +515,7 @@ void GameScreen::createCoin(int xPos)
 	auto coinAnimation = SceneUtil::playAnimation("coin.png", 0.07f, 6, 6, Graphics::COIN_WIDTH, Graphics::COIN_HEIGHT, true);
 	coinAnimation.second->runAction(coinAnimation.first);
 	addChild(coinAnimation.second, zorder::COIN);
-	CCParticleSystem* part = CCParticleSystem::create("moneyeffect.plist");
+	CCParticleSystemQuad* part = CCParticleSystemQuad::create("moneyeffect.plist");
 	addChild(part);
 	
 	ChipSprites* chip = chipSpritesFactory.create();
@@ -645,6 +614,59 @@ void GameScreen::update(float dt)
 		}
 	}
 	
+	for(auto i = twoBoundRemover.begin(); i != twoBoundRemover.end();)
+	{
+		if(gameTimer - i->second > 2)
+		{
+			removeBall_2(0, i->first);
+			
+			twoBoundRemover.erase(i++);
+		}
+		else
+			i++;
+	}
+	
+	for(auto i = coinRemover.begin(); i != coinRemover.end();)
+	{
+		cpShape* shape = i->first;
+		int p = coins[shape].first.getPrice();
+		cpVect coinPosition = shape->body->p;
+		NSDefault::setGold(NSDefault::getGold() + p);
+		info.ateGoldCount+=p;
+		playInfo->__ateCoin = info.ateGoldCount;
+		graphics.ateGoldFnt->setString(KS_Util::stringWithFormat("%d", info.ateGoldCount).c_str());
+		{
+			auto retainAnimation = SceneUtil::playAnimation("coin.png", 0.07f, 6, 6, Graphics::COIN_WIDTH, Graphics::COIN_HEIGHT, false);
+			addChild(retainAnimation.second, zorder::EAT_COIN_EFF);
+			ccBezierConfig bc;
+			bc.controlPoint_1 = retainAnimation.second->getPosition();
+			bc.controlPoint_2 = ccp(700, 100);
+			bc.endPosition = ccp(520, 10);
+			auto moveAction = CCBezierTo::create(1.2f, bc);
+			auto action2 = CCSpawn::create(retainAnimation.first, moveAction, CCScaleTo::create(0.8f, 0.5f)/*, CCFadeOut::create(1.2f)*/, 0); // 가면서 사라짐.
+			auto action3 = CCCallFuncN::create(this, callfuncN_selector(KSBaseScene::deleteSprite));
+			auto totalAction = CCSequence::create(action2, action3);
+			retainAnimation.second->setPosition(ccp(coinPosition.x, coinPosition.y));
+			retainAnimation.second->runAction(totalAction);
+		}
+		pBasketGame->eatCoin(p);
+		
+		coins.erase(shape);
+#if STATIC_OBJECT == 1
+		cpSpaceRemoveStaticShape(space, shape);
+		cpSpaceRemoveBody(space, shape->body);
+		cpBodyFree(shape->body);
+		cpShapeFree(shape);
+#else
+		cpSpaceRemoveShape(space, shape);
+		cpBodyFree(shape->body);
+		cpShapeFree(shape);
+#endif
+		
+		ChipSprites* coinSprites = (ChipSprites*)shape->data;
+		coinSprites->removeAllNode();
+		coinRemover.erase(i++);
+	}
 //
 	
 }
@@ -1081,7 +1103,7 @@ CCPoint GameScreen::createBall(CCPoint _ballPos)
 	addChild(animator.second, zorder::BALL);
 //	CCLog("%x", animator.second);
 	
-	CCParticleSystem* appearBallEff = CCParticleSystem::create("ballback.plist");
+	CCParticleSystemQuad* appearBallEff = CCParticleSystemQuad::create("ballback.plist");
 	appearBallEff->setAutoRemoveOnFinish(true);
 	appearBallEff->setPosition(_ballPos);
 	addChild(appearBallEff, zorder::SHOW_BALL_EFF);
@@ -1544,7 +1566,7 @@ void GameScreen::throwBall(float Vx, float Vy)
 	if(info.gameMode == BS2GameInformation::ZERO)
 	{
 		ChipSprites* cs = (ChipSprites*)controlableBall->data;
-		CCParticleSystem* part = CCParticleSystem::create("zeroball.plist");
+		CCParticleSystemQuad* part = CCParticleSystemQuad::create("zeroball.plist");
 		addChild(part, zorder::ZERO_BALL_EFF);
 		cs->addCCNodeWithFlag(part, ChipSprites::D_POSITION);
 	}

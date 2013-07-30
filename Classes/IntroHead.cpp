@@ -134,7 +134,7 @@ void IntroHead::keyBackClicked()
 		exitLabel = CCSprite::create("pressbackkey.png");
 		//exitLabel->setColor(ccc3(255, 0, 0));
 		
-		exitLabel->setPosition(ccp(240, 20));
+		exitLabel->setPosition(ccp(240, -160/*20*/));
 		addChild(exitLabel, INT_MAX);
 		currentBack = true;
 	}
@@ -245,13 +245,16 @@ void IntroHead::timeChecker(float dt)
 {
 	// 하트 차는 조건 검사
 	int currentTimeStamp = timestamp + (playInfo->getCurrentTime_s() - oldLocalTime);
+
 	// 싱크 안되어 있으면 패스.
 	if(isSync == false)
 		return;
-	if(currentTimeStamp - NSDefault::getHeartBaseTime() >= GameSystem::HEART_CHARGE_TIME &&
+	
+	int heartBaseTime = timestamp + NSDefault::getHeartBaseTime() - oldLocalTime;
+	if(currentTimeStamp - heartBaseTime >= GameSystem::HEART_CHARGE_TIME &&
 	   NSDefault::getHeartNumber() < GameSystem::DEFAULT_MAX_HEART)
 	{
-		int howAdd = (int)((currentTimeStamp - NSDefault::getHeartBaseTime()) / GameSystem::HEART_CHARGE_TIME);
+		int howAdd = (int)((currentTimeStamp - heartBaseTime) / GameSystem::HEART_CHARGE_TIME);
 		if(NSDefault::getHeartNumber() < 5 && NSDefault::getHeartNumber() + howAdd > 5)
 			howAdd = 5 - NSDefault::getHeartNumber();
 		
@@ -271,12 +274,13 @@ void IntroHead::timeChecker(float dt)
 //		if(shop)
 //			shop->notifiedHeart(NSDefault::getHeartNumber());
 		//remainHeartFnt->setString(KS_Util::stringWithFormat("%d", NSDefault::getHeartNumber()).c_str());
+		CCLog("cal time");
 		NSDefault::setHeartBaseTime(currentTimeStamp -
-									(currentTimeStamp - NSDefault::getHeartBaseTime()) % GameSystem::HEART_CHARGE_TIME);
+									(currentTimeStamp - heartBaseTime) % GameSystem::HEART_CHARGE_TIME);
 		
 	}
 	
-	int rechargeRemainTime_s = GameSystem::HEART_CHARGE_TIME - currentTimeStamp + NSDefault::getHeartBaseTime();
+	int rechargeRemainTime_s = GameSystem::HEART_CHARGE_TIME - currentTimeStamp + heartBaseTime;
 	int minu = rechargeRemainTime_s / 60.f;
 	int seco = rechargeRemainTime_s % 60;
 	string t = KS_Util::stringWithFormat("%02d:%02d", minu, seco);

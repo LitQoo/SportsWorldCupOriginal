@@ -56,7 +56,7 @@ import android.widget.LinearLayout;
 
 import com.litqoo.lib.*;
 
-public class SportsWorldCup extends Cocos2dxActivity{
+public class SportsWorldCup extends FBConnectorBase{
 	private AdView adView;
 	private static Context activity;
 	public static Object getActivity(){ return activity; }
@@ -115,6 +115,7 @@ public class SportsWorldCup extends Cocos2dxActivity{
     	// SportsWorldCup should create stencil buffer
     	glSurfaceView.setEGLConfigChooser(5, 6, 5, 0, 16, 8);
     	
+    	mGLView = glSurfaceView;
     	return glSurfaceView;
     }
 
@@ -190,7 +191,7 @@ public class SportsWorldCup extends Cocos2dxActivity{
     };
 	
     @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
         Log.d(TAG, "onActivityResult(" + requestCode + "," + resultCode + "," + data);
 
         // Pass on the activity result to the helper for handling

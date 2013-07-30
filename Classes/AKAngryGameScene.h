@@ -61,6 +61,10 @@ private:
 	{
 		CCLayer::draw();
 	}
+	void keyBackClicked()
+	{
+		//PAUSE(0);
+	}
 	void deleteSprite(CCNode* _obj)
 	{		
 		_obj->removeFromParentAndCleanup(true);

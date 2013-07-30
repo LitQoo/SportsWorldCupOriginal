@@ -151,10 +151,13 @@ bool Option::init()
 	close->setPosition(ccp(234, 263));
 	_menu->addChild(close, 2);
 	
-//	CCMenuItem* giftCode = CCMenuItemImage::create("option_giftcode.png", "option_giftcode.png",
-//												this, menu_selector(ThisClassType::GIFTCODE));
-//	giftCode->setPosition(ccp(73, 64));
-//	_menu->addChild(giftCode, 2);
+#if CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID
+	CCMenuItem* giftCode = CCMenuItemImage::create("option_giftcode.png", "option_giftcode.png",
+												this, menu_selector(ThisClassType::GIFTCODE));
+	giftCode->setPosition(ccp(73, 64));
+	_menu->addChild(giftCode, 2);
+#endif
+
 	
 	CCMenuItem* ilikeit = CCMenuItemImage::create("option_ilikeit.png", "option_ilikeit.png", this, menu_selector(Option::ILIKEIT));
 	ilikeit->setPosition(ccp(192, 64));
@@ -280,7 +283,10 @@ bool Option::isValidName()
 				inputedText[i] = '_';
 		}
 		NSDefault::setUserName(inputedText);
+		CCLog("t_function nn %s", NSDefault::getUserName().c_str());
+		
 		GraphDog::get()->setNick(NSDefault::getUserName());
+		CCLog("t_function nn2 %s", GraphDog::get()->getNick().c_str());
 		return true;
 	}
 }

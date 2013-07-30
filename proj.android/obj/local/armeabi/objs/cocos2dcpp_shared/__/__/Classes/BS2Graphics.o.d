@@ -285,6 +285,7 @@ obj/local/armeabi/objs/cocos2dcpp_shared/__/__/Classes/BS2Graphics.o: \
  /Users/ksook/DevLibs/cocos2d-2.1rc0-x-2.1.2/projects/SportsWorldCup/proj.android/../../../cocos2dx/platform/third_party/android/prebuilt/libcurl/include/curl/easy.h \
  /Users/ksook/DevLibs/cocos2d-2.1rc0-x-2.1.2/projects/SportsWorldCup/proj.android/../../../cocos2dx/platform/third_party/android/prebuilt/libcurl/include/curl/multi.h \
  /Users/ksook/DevLibs/cocos2d-2.1rc0-x-2.1.2/projects/SportsWorldCup/proj.android/../../../cocos2dx/platform/third_party/android/prebuilt/libcurl/include/curl/curl.h \
+ jni/../../Classes/GDSaveData.h jni/../../Classes/GDSaveData_android.h \
  jni/../../Classes/LoadingScene.h jni/../../Classes/SWIntro.h \
  jni/../../Classes/MoreApps.h jni/../../Classes/KSoundEngine.h \
  /Users/ksook/DevLibs/cocos2d-2.1rc0-x-2.1.2/projects/SportsWorldCup/proj.android/../../../CocosDenshion/android/../include/SimpleAudioEngine.h \
@@ -989,6 +990,10 @@ jni/../../Classes/GDLib.h:
 /Users/ksook/DevLibs/cocos2d-2.1rc0-x-2.1.2/projects/SportsWorldCup/proj.android/../../../cocos2dx/platform/third_party/android/prebuilt/libcurl/include/curl/multi.h:
 
 /Users/ksook/DevLibs/cocos2d-2.1rc0-x-2.1.2/projects/SportsWorldCup/proj.android/../../../cocos2dx/platform/third_party/android/prebuilt/libcurl/include/curl/curl.h:
+
+jni/../../Classes/GDSaveData.h:
+
+jni/../../Classes/GDSaveData_android.h:
 
 jni/../../Classes/LoadingScene.h:
 

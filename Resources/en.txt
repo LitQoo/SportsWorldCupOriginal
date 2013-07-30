@@ -17,6 +17,10 @@
 "exp" : "Multiplies your experience by 2",
 "shield" : "Saves you from breaking a combo once",
 "time" : "Gives you more game time",
+"leftrightspeed" : "Increase the movement speed of left and right",
+"wideflag" : "extend the space between flags. ",
+"random" : "Item will be selected randomly. ",
+"reducesize" : "Reduce the size. ",
 "item_highhurdle1.png" : "Gets rid of high hurdles",
 "item_wideview1.png" : "Widens view",
 "item_bird1.png" : "Decreases possibility of birds appearing",
@@ -27,8 +31,13 @@
 "item_tipin1.png" : "When the ball bounces out, touch the ball.",
 "yes" : "Yes",
 "no" : "No",
+"sended" : "Ticket was sent.",
+"openstagewithgold" : "Do you want to buy it by using your gold?",
 "nick_length" : "Your nickname must be less than 8 characters in length.",
 "selectflag" : "Choose your nationality.",
+"youneedticket" : "You need two tickets to open new game. Request tickets from your friends.",
+"ticketnoreq" : "Ticket from your friends arrived.",
+"ticketreq" : "A request for ticket arrived from your friends.",
 "itemnumberlimit" : "You can select a maximum of 3 items per game.",
-"itemnumberlimit2" : "You can select a maximum of 5 items per game."
+"itemnumberlimit2" : "You can’t select items."
 

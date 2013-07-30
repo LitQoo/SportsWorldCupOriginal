@@ -61,7 +61,10 @@ protected: // cocos2d
 	virtual bool ccTouchBegan(cocos2d::CCTouch *pTouch, cocos2d::CCEvent *pEvent);
 	virtual void ccTouchEnded(cocos2d::CCTouch *pTouch, cocos2d::CCEvent *pEvent);
 	virtual void onExit();
-
+	void keyBackClicked()
+	{
+		PAUSE(0);
+	}
 public:
 private:
 	void eatCoin(int n, CCPoint from);

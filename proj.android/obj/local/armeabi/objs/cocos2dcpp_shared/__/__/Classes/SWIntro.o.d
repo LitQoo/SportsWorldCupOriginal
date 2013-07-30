@@ -383,6 +383,7 @@ obj/local/armeabi/objs/cocos2dcpp_shared/__/__/Classes/SWIntro.o: \
  jni/../../Classes/SKObstacleLayer.h jni/../../Classes/SKFlag.h \
  jni/../../Classes/SKObstacle.h jni/../../Classes/SKCharacter.h \
  jni/../../Classes/GraphDog.h jni/../../Classes/GDLib.h \
+ jni/../../Classes/GDSaveData.h jni/../../Classes/GDSaveData_android.h \
  jni/../../Classes/KS_Util.h \
  /Users/ksook/DevLibs/android-ndk-r7-crystax-5.beta2/sources/cxx-stl/gnu-libstdc++/include/4.6.3/iterator \
  /Users/ksook/DevLibs/android-ndk-r7-crystax-5.beta2/sources/cxx-stl/gnu-libstdc++/include/4.6.3/locale \
@@ -1247,6 +1248,10 @@ jni/../../Classes/SKCharacter.h:
 jni/../../Classes/GraphDog.h:
 
 jni/../../Classes/GDLib.h:
+
+jni/../../Classes/GDSaveData.h:
+
+jni/../../Classes/GDSaveData_android.h:
 
 jni/../../Classes/KS_Util.h:
 

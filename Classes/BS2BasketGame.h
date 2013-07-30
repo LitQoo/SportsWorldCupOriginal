@@ -28,7 +28,7 @@ USING_NS_CC;
 
 struct zorder
 {
-	enum{EAT_COIN_EFF=9, BALL_HIDE_EFF=10, POST=1, SHADOW=9, BALL_SHADOW=5, BALL=8, TIME_ICE=5,
+	enum{EAT_COIN_EFF=9, BALL_HIDE_EFF=15, POST=1, SHADOW=9, BALL_SHADOW=5, BALL=8, TIME_ICE=5,
 		SHOW_BALL_EFF=15, BACK=-1, TIP_IN_EFF=7, ZERO_BALL_EFF=7, MINI_RANK=1, ITEM_TRACER=11, TRACER=10,
 		COMBO=3, COMBO_ZERO=3, COMBO_NUMBER=3, COMBO_NUMBER_ZERO=3, CLEAN_SHOT=8, COIN=8, FRONT_POST=10, LUCKY=8,
 		POST_MOVE_BAR=2, SCORE=15, COMBO_EFF=2, TIPBOX = 15};
@@ -42,6 +42,10 @@ public:
 	BasketGame();
 	virtual ~BasketGame();
 //	virtual void ccTouchesBegan(CCSet* pTouches, CCEvent* pEvent);
+	void keyBackClicked()
+	{
+		//PAUSE(0);
+	}
 	virtual bool ccTouchBegan(CCTouch* pTouch, CCEvent* pEvent);	
 	virtual bool init();
 	virtual void onEnterTransitionDidFinish();

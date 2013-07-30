@@ -60,6 +60,8 @@ bool HGGameScene::init()
     {
         return false;
     }
+	
+	setKeypadEnabled(true);
 	CCSprite* back = CCSprite::create("hg_back.png");
 	addChild(back);
 	back->setPosition(ccp(240, 160));
@@ -168,10 +170,7 @@ bool HGGameScene::init()
 	graphics.watch2->setPosition(ccp(431, 277));
 	addChild(graphics.watch2, 2);
 	graphics.watch2->setVisible(false);
-	graphics.watch3 = CCSprite::create("ui_time3.png");
-	graphics.watch3->setPosition(ccp(431, 277));
-	addChild(graphics.watch3, 2);
-	graphics.watch3->setVisible(false);
+	
 	
 	graphics.timeFnt = CCLabelBMFont::create(KS_Util::stringWithFormat("%.0f", (info.remainTime) * BASETIME / info.INIT_GAME_TIME).c_str(), "time1.fnt");
 	addChild(graphics.timeFnt, 3);

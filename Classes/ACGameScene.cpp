@@ -87,7 +87,7 @@ bool ACGameScene::init()
     {
         return false;
     }
-		
+	setKeypadEnabled(true);
 	KSoundEngine::sharedEngine()->playSound("hotshots.mp3");
 	//	KSoundEngine::sharedEngine()->playSound("beat area.mp3");
 //		KSoundEngine::sharedEngine()->playSound("Block Buster.mp3");
@@ -227,11 +227,7 @@ bool ACGameScene::init()
 	graphics.watch2->setPosition(ccp(431, 277));
 	addChild(graphics.watch2, 1);
 	graphics.watch2->setVisible(false);
-	graphics.watch3 = CCSprite::create("ui_time3.png");
-	graphics.watch3->setPosition(ccp(431, 277));
-	addChild(graphics.watch3, 1);
-	graphics.watch3->setVisible(false);
-	
+		
 	graphics.windLayer = CCLayer::create();
 	addChild(graphics.windLayer, 2);
 	CCSprite* windGaugeBack = CCSprite::create("aw_windback.png");

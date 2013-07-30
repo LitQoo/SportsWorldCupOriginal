@@ -19,6 +19,8 @@
 USING_NS_CC;
 #include "ProbSelector.h"
 #include "CCLuaEngine.h"
+#include "GDSaveData.h"
+
 typedef struct tagResource
 {
     cocos2d::CCSize size;
@@ -60,7 +62,7 @@ bool AppDelegate::applicationDidFinishLaunching() {
     // --------------------------------------------------------------------------------------
     CCSize frameSize = pEGLView->getFrameSize();
 	pDirector->setContentScaleFactor(2.f); // 640 / 320.f
-	pDirector->setDisplayStats(true);
+//	pDirector->setDisplayStats(true);
 	CCLog("frameSize = %f %f", frameSize.width, frameSize.height);
 //	pDirector->setContentScaleFactor(2.0f);// * (frameSize.width / frameSize.height) * (480.f / 320.f));
 	CCFileUtils::sharedFileUtils()->addSearchPath("res_game");
@@ -68,8 +70,31 @@ bool AppDelegate::applicationDidFinishLaunching() {
     // set FPS. the default value is 1.0/60 if you don't call this
     pDirector->setAnimationInterval(1.0 / 60);
 	
-	
 	saveData->createJSON();
+	gdSaveData->createJSON();
+	// 업데이트한 유저에 대해서는 설치날짜를 안잡음. 0임.
+	if(saveData->getValue("SU", "") == "")
+	{
+		if(NSDefault::getInstallTime() == 0)
+		{
+			NSDefault::setInstalltime(playInfo->getCurrentTime_s());
+		}
+	}
+	
+	if(NSDefault::getInstallTime() < 1374713847) // 13-7-25 일 정도
+	{
+		NSDefault::setOpenGame("AK");
+		NSDefault::setOpenGame("AC");
+		NSDefault::setOpenGame("BS");
+//		NSDefault::setOpenGame("HG");
+		NSDefault::setOpenGame("HW");
+		NSDefault::setOpenGame("SK");
+	}
+	
+	CCLog("%d", playInfo->getCurrentTime_s());
+//	if(NSDefault::getInstallTime() < )
+	
+	
 
 	
 	if(NSDefault::getUserName() == "")
@@ -106,7 +131,7 @@ bool AppDelegate::applicationDidFinishLaunching() {
 	KSoundEngine::sharedEngine()->registerSoundOnEffect("se_takegold01.mp3");
 	KSoundEngine::sharedEngine()->registerSoundOnEffect("se_takemedal.mp3");
 	KSoundEngine::sharedEngine()->registerSoundOnEffect("se_throwballinzero.mp3");
-	KSoundEngine::sharedEngine()->registerSoundOnEffect("se_timeover.mp3");
+//	KSoundEngine::sharedEngine()->registerSoundOnEffect("se_timeover.mp3");
 	KSoundEngine::sharedEngine()->registerSoundOnEffect("se_timewarning.mp3");
 	KSoundEngine::sharedEngine()->registerSoundOnEffect("se_tipinfull.mp3");
 	KSoundEngine::sharedEngine()->registerSoundOnEffect("se_useheart01.mp3");
@@ -120,7 +145,7 @@ bool AppDelegate::applicationDidFinishLaunching() {
 	KSoundEngine::sharedEngine()->registerSoundOnEffect("birddeath.mp3");
 	KSoundEngine::sharedEngine()->registerSoundOnEffect("gameselect.mp3");
 	KSoundEngine::sharedEngine()->registerSoundOnEffect("uhuh.mp3");
-	KSoundEngine::sharedEngine()->registerSoundOnEffect("bonustime.mp3");
+	//KSoundEngine::sharedEngine()->registerSoundOnEffect("bonustime.mp3");
 	KSoundEngine::sharedEngine()->registerSoundOnEffect("shield.mp3");
 	KSoundEngine::sharedEngine()->registerSoundOnEffect("usemoney.mp3");
 	KSoundEngine::sharedEngine()->registerSoundOnEffect("useheart.mp3");
@@ -153,17 +178,34 @@ bool AppDelegate::applicationDidFinishLaunching() {
     return true;
 }
 
+bool onceExit = false;
 // This function will be called when the app is inactive. When comes a phone call,it's be invoked too
 void AppDelegate::applicationDidEnterBackground() {
-    CCDirector::sharedDirector()->stopAnimation();
+//    CCDirector::sharedDirector()->stopAnimation();
 
     // if you use SimpleAudioEngine, it must be pause
     // SimpleAudioEngine::sharedEngine()->pauseBackgroundMusic();
+	CocosDenshion::SimpleAudioEngine::sharedEngine()->pauseBackgroundMusic();
+	if(playInfo->gamePtr && !CCDirector::sharedDirector()->isPaused())
+		playInfo->gamePtr->PAUSE(0);
+	onceExit = true;
+	CCDirector::sharedDirector()->pause();
 }
 
 // this function will be called when the app is active again
 void AppDelegate::applicationWillEnterForeground() {
-    CCDirector::sharedDirector()->startAnimation();
+	if(!playInfo->gamePtr)
+		CCDirector::sharedDirector()->resume();
+	
+	// 한번이라도 나갔다가 들어오면, 서버에서 다시 시간을 받음...
+	if(onceExit)
+	{
+		if(playInfo->pIntroHead)
+			playInfo->pIntroHead->syncTime();
+	}
+	// if you use SimpleAudioEngine, it must resume here
+	if(NSDefault::getBGM())
+		CocosDenshion::SimpleAudioEngine::sharedEngine()->resumeBackgroundMusic();
 
     // if you use SimpleAudioEngine, it must resume here
     // SimpleAudioEngine::sharedEngine()->resumeBackgroundMusic();

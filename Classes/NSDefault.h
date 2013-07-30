@@ -131,6 +131,7 @@ public:
 	
 	static void setHeartBaseTime(int b)
 	{
+		CCLog(" = %d", b);
 		saveData->setKeyValue("S_HEARTBASETIME", b);
 	}
 	static int getHeartBaseTime()
